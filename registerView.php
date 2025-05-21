@@ -1,0 +1,36 @@
+<?php require_once 'header.mustache'; ?>
+<div class = "container">
+    <div class = "login-box">
+        <img src="media/back.png" alt="volver" class="back-btn" style="cursor:pointer;" onclick="history.back()">
+        <h2> Registrarme </h2>
+        <form action="/registro" method="POST" enctype="multipart/form-data">
+            <input type="text" name="nombre" placeholder="Nombre completo" required>
+
+            <input type="date" name="date"required>
+
+            <select name="sexo" required>
+                <option value="">Selecciona tu sexo</option>
+                <option value="femenino">Femenino</option>
+                <option value="masculino">Masculino</option>
+                <option value="no-especificado">Prefiero no cargarlo</option>
+            </select>
+
+            <!-- Ingreso del mapa -->
+            <label for="map">Ubicación de tu País y Ciudad:</label>
+            <div id="map" style="height: 300px; width: 100%; border-radius: 10px; margin-bottom: 15px;"></div>
+            <input type="text" name="pais" id="pais" placeholder="País" required readonly>
+            <input type="text" name="ciudad" id="ciudad" placeholder="Ciudad" required readonly>
+
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <input type="password" name="password2" placeholder="Repetir contraseña" required>
+            <input type="text" name="usuario" placeholder="Nombre de usuario" required>
+
+            <label for="foto" class = "tituloFoto">Foto de perfil:</label>
+            <input type="file" name="foto" id="foto" accept="image/*" required>
+
+            <button type="submit" value="Submit">Registrarme</button>
+        </form>
+    </div>
+</div>
+<?php require_once 'footer.mustache';?>

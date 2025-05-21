@@ -1,0 +1,197 @@
+@import url(https://db.onlinewebfonts.com/c/1dc7840abb13fcda12aa8d1cb21fb832?family=Agrandir);
+
+body {
+    font-family: Agrandir, sans-serif;
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    position: relative;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(to bottom, #0d0d0d, #000000);
+}
+
+.logo {
+    position: absolute;
+    top: -40px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo .icono {
+    height: 100px;
+}
+
+.logo .letra {
+    height: 200px;
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px; /* agrega espacio arriba y abajo */
+}
+
+
+.login-box {
+    background: rgba(255, 255, 255, 0.05); /* fondo blanco muy transparente */
+    backdrop-filter: blur(10px); /* desenfoque para glass effect */
+    padding: 60px;
+    width: 450px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-box h2 {
+    margin-bottom: 30px;
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.login-box input[type="email"],
+.login-box input[type="password"],
+.login-box input[type="text"],
+.login-box input[type="date"],
+.login-box input[type="file"],
+.login-box select{
+    font-family: Agrandir, sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-box select option {
+    background-color: #000;
+    color: white;
+
+}
+
+.login-box label{
+    font-family: Agrandir, sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 15px;
+    color: white;
+}
+
+#map {
+    background-color: #ccc;
+}
+
+.login-box .forgot {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: #fff;
+    text-decoration: underline;
+}
+
+.login-box .forgot:hover {
+
+    color: #d66b0e;
+    transition: color 0.3s ease;
+
+}
+
+.login-box button {
+    font-family: Agrandir, sans-serif;
+    font-size: 15px;
+    width: 100%;
+    background-color: #d66b0e;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.remember {
+    margin: 15px 0;
+    text-align: left;
+    font-size: 14px;
+    color: white;
+}
+
+.bottom-text {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+}
+
+.bottom-text .registrar {
+    text-decoration: none;
+    color: white;
+    text-decoration: underline;
+}
+
+.bottom-text .registrar:hover {
+    color: #d66b0e;
+    transition: color 0.3s ease;
+}
+
+
+.footer {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to bottom, #0d0d0d, #000000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer .letrafooter {
+    height: 100px;
+}
+
+.footer span {
+    color: white;
+    font-size: 15px;
+}
+
+.redes {
+    display: flex;
+    gap: 10px;
+}
+
+.redes img {
+    height: 30px;
+
+}
+
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
