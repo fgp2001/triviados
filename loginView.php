@@ -1,9 +1,13 @@
 <?php
+require_once(__DIR__ . "/core/Database.php");
+require_once(__DIR__ . "/model/loginModel.php");
+require_once(__DIR__ . "/controller/loginController.php");
+
 require_once 'header.mustache';?>
   <div class="container">
     <div class="login-box">
       <h2>Iniciá Sesión</h2>
-       <form action="/login" method="POST">
+       <form action="" method="POST">
         <input type="email" name="email" placeholder="Email" required>
       <input type="password" name="password" placeholder="Password" required>
       <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
