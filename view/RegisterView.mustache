@@ -1,7 +1,7 @@
-<?php require_once 'header.mustache'; ?>
+
 <div class = "container">
     <div class = "login-box">
-        <img src="media/back.png" alt="volver" class="back-btn" style="cursor:pointer;" onclick="history.back()">
+        <img src="../media/back.png" alt="volver" class="back-btn" style="cursor:pointer;" onclick="history.back()">
         <h2> Registrarme </h2>
         <form action="/registro" method="POST" enctype="multipart/form-data">
             <input type="text" name="nombre" placeholder="Nombre completo" required>
@@ -33,4 +33,3 @@
         </form>
     </div>
 </div>
-<?php require_once 'footer.mustache';?>

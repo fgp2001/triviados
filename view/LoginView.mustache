@@ -1,9 +1,4 @@
-<?php
-require_once(__DIR__ . "/core/Database.php");
-require_once(__DIR__ . "/model/loginModel.php");
-require_once(__DIR__ . "/controller/loginController.php");
 
-require_once 'header.mustache';?>
   <div class="container">
     <div class="login-box">
       <h2>Iniciá Sesión</h2>
@@ -18,8 +13,8 @@ require_once 'header.mustache';?>
       </div>
       </form>
       <div class="bottom-text">¿No tenes una cuenta?
-        <a href="registerView.php" class="registrar">Registrarme</a>
+        <a href="/Register/show" class="registrar">Registrarme</a>
        </div>
     </div>
   </div>
-<?php  require_once 'footer.mustache';?>
+
