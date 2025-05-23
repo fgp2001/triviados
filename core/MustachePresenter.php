@@ -4,6 +4,7 @@ class MustachePresenter{
     private $mustache;
     private $partialsPathLoader;
 
+
     public function __construct($partialsPathLoader){
         Mustache_Autoloader::register();
         $this->mustache = new Mustache_Engine(

@@ -22,7 +22,7 @@ class loginController{
 
             if ($usuario) {
                 $_SESSION['usuario'] = $usuario['email'];
-                header("Location:../Dashboard.php");
+                header("Location: /triviados/Dashboard/show");
                 exit;
             } else{
                 header("Location:../LoginView.mustache?error=1");

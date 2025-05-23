@@ -5,8 +5,12 @@ require_once("core/MustachePresenter.php");
 require_once("core/Router.php");
 
 require_once("model/LoginModel.php");
-
 require_once("controller/LoginController.php");
+require_once("model/RegisterModel.php");
+require_once("controller/RegisterController.php");
+require_once ("controller/DashboardController.php");
+require_once ("model/DashboardModel.php");
+
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
@@ -29,11 +33,27 @@ class Configuration
         return parse_ini_file("configuration/config.ini", true);
     }
 
+
    public function getLoginController(){
         return new loginController(
             new loginModel($this->getDatabase()),$this->getViewer()
         );
    }
+
+
+    public function getRegisterController(){
+        return new RegisterController(
+            new RegisterModel($this->getDatabase()),
+            $this->getViewer()
+        );
+    }
+
+    public function getDashboardController(){
+        return new DashboardController(
+            new DashboardModel($this->getDatabase()),
+            $this->getViewer()
+        );
+    }
 
     public function getRouter()
     {

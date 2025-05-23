@@ -4,7 +4,7 @@ require_once("Configuration.php");
 $configuration = new Configuration();
 $router = $configuration->getRouter();
 
-$router->go(
-    $_GET["controller"],
-    $_GET["method"]
-);
+$controller = $_GET['controller'] ?? null;
+$method = $_GET['method'] ?? null;
+
+$router->go($controller, $method);
