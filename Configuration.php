@@ -10,6 +10,8 @@ require_once("model/RegisterModel.php");
 require_once("controller/RegisterController.php");
 require_once ("controller/DashboardController.php");
 require_once ("model/DashboardModel.php");
+require_once ("controller/LobbyController.php");
+require_once ("model/LobbyModel.php");
 
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');

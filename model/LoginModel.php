@@ -10,10 +10,13 @@ class loginModel{
     }
 
     public function validarUsuario($email, $password){
-        $sql = "SELECT * FROM usuarios WHERE email = '$email' AND password = '$password'";
-        $usuarios = $this->db->query($sql);
+        $sql = "SELECT * FROM usuarios WHERE email = '$email' AND password = '$password' AND validado = 1";
+        $resultado = $this->db->query($sql);
 
-        return $usuarios;
+        if ($resultado && count($resultado) > 0) {
+            return $resultado[0]; // Devuelve el primer usuario
+        }
+        return false;
     }
 
 }
