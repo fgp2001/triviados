@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../libs/MailService.php';
+
 class RegisterController
 {
     private $model;
@@ -31,7 +33,8 @@ class RegisterController
             $fotoPath = "";
             if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] === UPLOAD_ERR_OK) {
                 $nombreFoto = basename($_FILES["foto"]["name"]);
-                $fotoPath = "uploads/" . $nombreFoto;
+                $nombreFinal = $usuario . ".png";
+                $fotoPath = "img/" . $nombreFinal;
                 move_uploaded_file($_FILES["foto"]["tmp_name"], $fotoPath);
             }
 
@@ -50,14 +53,8 @@ class RegisterController
     }
 
     private function enviarEmailValidacion($email, $token) {
-        $link = "http://localhost/triviados/Register/validar?token=$token";
-
-        $to = $email;
-        $subject = "Valida tu cuenta en Triviados y arrancá a jugar!";
-        $message = "Gracias por registrarte. Validá tu cuenta haciendo click en el siguiente enlace:\n$link";
-        $headers = "From: no-contestar@triviados.com";
-
-        mail($to, $subject, $message, $headers);
+        $mailService = new MailService();
+        $mailService->enviarValidacion($email, $token);
     }
 
     public function validar(){

@@ -11,9 +11,8 @@ class LobbyController{
 
 
     public function show() {
-        session_start();
         $nombre = $_SESSION['nombre_usuario'] ?? 'Invitado';
-        $this->view->render("LobbyView", ["nombre_usuario" => $nombre]);
+        $this->view->render("Lobby", ["nombre_usuario" => $nombre]);
     }
 
 }

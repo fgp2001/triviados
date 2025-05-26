@@ -30,10 +30,8 @@ class loginController{
                 } else{
                     header("Location: /triviados/Lobby/show");
                 }
-                exit;
             } else{
                 header("Location:../LoginView.mustache?error=1");
-                exit;
             }
 
         }

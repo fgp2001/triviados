@@ -18,9 +18,10 @@ class RegisterModel
     }
 
     public function validarUsuarioPorToken($token){
-        $sql = "UPDATE usuarios SET validado = 1 WHERE token_validacion = '" . $this->db->real_escape_string($token) . "'";
-        $this->db->query($sql);
-        return $this->db->affected_rows > 0;
+        $stmt = $this->db->prepare("UPDATE usuarios SET validado = 1 WHERE token_validacion = ?");
+        $stmt->bind_param("s", $token);
+        $stmt->execute();
+        return $stmt->affected_rows > 0;
     }
 
 
