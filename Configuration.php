@@ -57,6 +57,13 @@ class Configuration
         );
     }
 
+    public function getLobbyController(){
+        return new LobbyController(
+            new LobbyModel($this->getDatabase()),
+            $this->getViewer()
+        );
+    }
+
     public function getRouter()
     {
         return new Router("getLoginController", "show", $this);

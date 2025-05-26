@@ -1,4 +1,5 @@
 <?php
+#include <stdlib.h>
 
 class loginController{
     private $model;
@@ -27,11 +28,14 @@ class loginController{
 
                 if ($usuario['email'] === 'admin@admin.com') {
                     header("Location: /triviados/Dashboard/show");
+                    exit;
                 } else{
                     header("Location: /triviados/Lobby/show");
+                    exit;
                 }
             } else{
                 header("Location:../LoginView.mustache?error=1");
+                exit;
             }
 
         }
