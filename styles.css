@@ -195,3 +195,32 @@ form {
     height: 20px;
     cursor: pointer;
 }
+
+.perfil-container {
+    color: white;
+    background-color: #111;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 30px auto;
+    font-family: Agrandir, sans-serif;
+}
+
+.perfil-container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: block;
+    margin: 10px auto;
+}
+
+.perfil-container a {
+    color: #66ccff;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.perfil-container a:hover {
+    text-decoration: underline;
+}

@@ -15,19 +15,12 @@ class PerfilController
     public function show()
     {
         session_start();
+        $usuario = $_SESSION['nombre_usuario'] ?? 'Invitado';
 
-        if (!isset($_SESSION['id_incremental'])) {
-            header('Location: index.php');
-            exit();
-        }
-       $id = $_SESSION['id_incremental'];
-        $datos = $this->model->obtenerDatosUsuario($id);
-        if($datos){
-            $this->view->render('PerfilView', $datos);
-        }else {
-            $this->view->render('Error', ['mensaje' => 'No se pudo cargar el perfil.']);
-        }
+        $perfilDatos = $this->model->getPerfilDatos($usuario);
+
+        $this->view->render("Perfil", $perfilDatos);
+
     }
-
 
 }
