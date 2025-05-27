@@ -12,6 +12,8 @@ require_once ("controller/DashboardController.php");
 require_once ("model/DashboardModel.php");
 require_once ("controller/LobbyController.php");
 require_once ("model/LobbyModel.php");
+require_once ("model/PerfilModel.php");
+require_once ("controller/PerfilController.php");
 
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
@@ -61,6 +63,12 @@ class Configuration
         return new LobbyController(
             new LobbyModel($this->getDatabase()),
             $this->getViewer()
+        );
+    }
+    public function getPerfilController(){
+        return new PerfilController(
+            new PerfilModel($this->getDatabase()),
+                $this->getViewer()
         );
     }
 

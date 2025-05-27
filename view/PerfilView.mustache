@@ -1,0 +1,28 @@
+<h1>Perfil de {{nombre_usuario}}</h1>
+
+<div class="perfil-container">
+    <div class="perfil-avatar">
+        {{#avatar}}
+            <img src="{{avatar}}" alt="Avatar de {{nombre_usuario}}" width="150">
+        {{/avatar}}
+        {{^avatar}}
+            <img src="default-avatar.png" alt="Avatar por defecto" width="150">
+        {{/avatar}}
+    </div>
+
+    <div class="perfil-datos">
+        <p><strong>Nombre completo:</strong> {{nombre_completo}}</p>
+        <p><strong>Email:</strong> {{email}}</p>
+        <p><strong>Fecha de registro:</strong> {{fecha_registro}}</p>
+        <p><strong>Último acceso:</strong> {{ultimo_acceso}}</p>
+        <p><strong>Puntaje total:</strong> {{puntaje_total}}</p>
+        <p><strong>Partidas jugadas:</strong> {{partidas_jugadas}}</p>
+        <p><strong>Partidas ganadas:</strong> {{partidas_ganadas}}</p>
+        <p><strong>Partidas perdidas:</strong> {{partidas_perdidas}}</p>
+    </div>
+</div>
+
+<div class="perfil-acciones">
+    <a href="?controller=Perfil&action=editar">Editar perfil</a> |
+    <a href="?controller=Dashboard&action=show">Volver al inicio</a>
+</div>
