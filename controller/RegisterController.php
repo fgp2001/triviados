@@ -65,7 +65,7 @@ class RegisterController
             if ($result) {
                 $this->view->render("REgisterValido");
             } else{
-                echo "La cuenta no pudo ser validada.";
+                $this->view->render("RegisterNoValido");
             }
         } else{
             echo "Token no recibido.";
