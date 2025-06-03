@@ -44,9 +44,9 @@ class RegisterController
 
             if ($registrado) {
                 $this->enviarEmailValidacion($email, $token);
-                echo "Registro exitoso. Revisá tu correo para validar tu cuenta.";
+                $this->view->render("RegisterExito");
             } else{
-                echo "Error al registrar el usuario.";
+                $this->view->render("RegisterError");
             }
 
             }
@@ -74,6 +74,6 @@ class RegisterController
     }
 
     function show(){
-        $this->view->render("Register");
+        $this->view->render("RegisterForm");
     }
 }
