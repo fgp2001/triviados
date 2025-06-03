@@ -224,3 +224,28 @@ form {
 .perfil-container a:hover {
     text-decoration: underline;
 }
+
+.btn {
+    background-color: #d66b0e;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: Agrandir, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #ff8000;
+}
+
+.big {
+    font-size: 20px;
+    padding: 14px 28px;
+}
+.btn.big:last-child {
+    margin-bottom: 50px; /* o lo que necesites */
+}
