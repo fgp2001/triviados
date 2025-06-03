@@ -1,5 +1,4 @@
 <?php
-#include <stdlib.h>
 
 class loginController{
     private $model;

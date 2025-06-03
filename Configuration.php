@@ -14,6 +14,8 @@ require_once ("controller/LobbyController.php");
 require_once ("model/LobbyModel.php");
 require_once ("model/PerfilModel.php");
 require_once ("controller/PerfilController.php");
+require_once ("controller/PartidaController.php");
+require_once ("model/PartidaModel.php");
 
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
@@ -69,6 +71,12 @@ class Configuration
         return new PerfilController(
             new PerfilModel($this->getDatabase()),
                 $this->getViewer()
+        );
+    }
+    public function getPartidaController(){
+        return new PartidaController(
+            new PartidaModel($this->getDatabase()),
+            $this->getViewer()
         );
     }
 
