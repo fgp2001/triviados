@@ -249,3 +249,15 @@ form {
 .btn.big:last-child {
     margin-bottom: 50px; /* o lo que necesites */
 }
+.pregunta-text {
+    text-align: center;
+    color: white;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+}
