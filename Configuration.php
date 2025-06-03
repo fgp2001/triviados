@@ -16,7 +16,10 @@ require_once ("model/PerfilModel.php");
 require_once ("controller/PerfilController.php");
 require_once ("controller/PartidaController.php");
 require_once ("model/PartidaModel.php");
-
+require_once ("controller/RankingController.php");
+require_once ("model/RankingModel.php");
+require_once ("controller/CrearPreguntaController.php");
+require_once ("model/CrearPreguntaModel.php");
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
@@ -76,6 +79,18 @@ class Configuration
     public function getPartidaController(){
         return new PartidaController(
             new PartidaModel($this->getDatabase()),
+            $this->getViewer()
+        );
+    }
+    public function getRankingController(){
+        return new RankingController(
+            new RankingModel($this->getDatabase()),
+            $this->getViewer()
+        );
+    }
+    public function getCrearPreguntaController(){
+        return new CrearPreguntaController(
+            new CrearPreguntaModel($this->getDatabase()),
             $this->getViewer()
         );
     }
