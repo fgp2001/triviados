@@ -63,7 +63,7 @@ class RegisterController
             $token = $_GET["token"];
             $result = $this->model->validarUsuarioPorToken($token);
             if ($result) {
-                echo "Tu cuenta ha sido validada. ¡Bienvenido a Triviados!";
+                $this->view->render("REgisterValido");
             } else{
                 echo "La cuenta no pudo ser validada.";
             }
