@@ -63,7 +63,7 @@ class RegisterController
             $token = $_GET["token"];
             $result = $this->model->validarUsuarioPorToken($token);
             if ($result) {
-                $this->view->render("REgisterValido");
+                $this->view->render("RegisterValido");
             } else{
                 $this->view->render("RegisterNoValido");
             }

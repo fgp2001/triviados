@@ -11,18 +11,18 @@ class LobbyController{
 
 
     public function show() {
-        session_start();
+
         $nombre = $_SESSION['nombre_usuario'] ?? 'Invitado';
+        $tipoUsuario = $_SESSION['tipo_usuario'] ?? null;
 
-
-
-        if($nombre !== 'Invitado') {
-            $foto = $this->model->getImagenPerfil($nombre);
-        } else{
-            $foto = '/triviados/img/default-avatar.jpg';
+        if ($tipoUsuario !== 'jugador') {
+            header("Location: /triviados/Login/show?error=nosepuede");
+            exit;
         }
 
-        $this->view->render("Lobby", ['nombre_usuario' => $nombre, 'foto' => $foto]);
-    }
+        $foto = $this->model->getImagenPerfil($nombre) ?? '/triviados/img/default-avatar.jpg';
 
+        $this->view->render("Lobby", ['nombre_usuario' => $nombre, 'foto' => $foto]);
+
+    }
 }

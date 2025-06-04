@@ -19,21 +19,26 @@ class loginController{
 
 
             $usuario = $this->model->validarUsuario($email, $password);
-            //Falta agregar la opcion de que si es un editor lo mande al panel de edicion
-            if ($usuario) {
-                session_start();
-                $_SESSION['usuario'] = $usuario['email'];
-                $_SESSION['nombre_usuario'] = $usuario['nombre_usuario'];
 
-                if ($usuario['email'] === 'admin@admin.com') {
+            if ($usuario){
+            $_SESSION['usuario'] = $usuario['email'];
+            $_SESSION['nombre_usuario'] = $usuario['nombre_usuario'];
+            $_SESSION['tipo_usuario'] = strtolower($usuario['tipo_Usuario']);
+
+            switch($_SESSION['tipo_usuario']){
+                case 'admin':
                     header("Location: /triviados/Dashboard/show");
-                    exit;
-                } else{
+                    break;
+                case 'editor':
+                    header("Location: /triviados/PanelEditor/show");
+                    break;
+                case 'jugador':
                     header("Location: /triviados/Lobby/show");
-                    exit;
-                }
+                    break;
+            }
+            exit;
             } else{
-                header("Location:../LoginView.mustache?error=1");
+                header("Location: /triviados/Login/show?error=rol_desconocido");
                 exit;
             }
 
