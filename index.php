@@ -23,7 +23,6 @@ if (isset($publicos[$controller]) && in_array($method, $publicos[$controller])) 
         case 'Dashboard':
             $permitido = ($tipoUsuario === 'admin');
             break;
-
         case 'PanelEditor':
             $permitido = ($tipoUsuario === 'editor');
             break;
