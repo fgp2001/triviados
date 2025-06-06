@@ -1,3 +1,4 @@
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
@@ -6,7 +7,8 @@
 -- Tiempo de generación: 05-06-2025 a las 04:31:20
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
-
+CREATE DATABASE triviados;
+USE triviados;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -20,7 +22,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `triviados`
 --
-
 -- --------------------------------------------------------
 
 --
