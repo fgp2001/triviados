@@ -24,6 +24,7 @@ class loginController{
             $_SESSION['usuario'] = $usuario['email'];
             $_SESSION['nombre_usuario'] = $usuario['nombre_usuario'];
             $_SESSION['tipo_usuario'] = strtolower($usuario['tipo_Usuario']);
+            $_SESSION['id_incremental'] = $usuario['id_incremental'];
 
             switch($_SESSION['tipo_usuario']){
                 case 'admin':

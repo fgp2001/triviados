@@ -249,15 +249,69 @@ form {
 .btn.big:last-child {
     margin-bottom: 50px; /* o lo que necesites */
 }
-.pregunta-text {
-    text-align: center;
-    color: white;
-}
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 20px;
+.partida-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 30px;
+    width: 90%;
     max-width: 600px;
-    margin: 20px auto;
+    margin: 60px auto;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.partida-container h2 {
+    color: #d66b0e;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.partida-container p {
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.partida-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.partida-container label {
+    display: block;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.partida-container label:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.partida-container input[type="radio"] {
+    margin-right: 10px;
+}
+
+.partida-container button {
+    font-family: Agrandir, sans-serif;
+    font-size: 16px;
+    background-color: #d66b0e;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.partida-container button:hover {
+    background-color: #ff8000;
 }

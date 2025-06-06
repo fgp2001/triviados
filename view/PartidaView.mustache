@@ -1,7 +1,16 @@
-<h1 class="pregunta-text">¿Pregunta?</h1>
-<div class="grid-container">
-    <h5 class="btn big">Respuesta 1</h5>
-    <h5 class="btn big">Respuesta 2</h5>
-    <h5 class="btn big">Respuesta 3</h5>
-    <h5 class="btn big">Respuesta 4</h5>
+<div class="partida-container">
+    <h2>Pregunta</h2>
+    <p>{{pregunta}}</p>
+
+    <form method="post" action="/triviados/Partida/responderPregunta">
+        <input type="hidden" name="id_pregunta" value="{{id_incremental}}">
+        {{#opciones}}
+            <label>
+                <input type="radio" name="opcion" value="{{id_incremental}}" required>
+                {{opcion}}
+            </label>
+        {{/opciones}}
+
+        <button type="submit">Responder</button>
+    </form>
 </div>
