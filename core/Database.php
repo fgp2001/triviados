@@ -4,9 +4,9 @@ class Database{
 
     private $conn;
 
-    function __construct($servername, $username,$dbname, $password)
+    function __construct($servername, $username,$dbname, $password,$port)
     {
-        $this->conn = new Mysqli($servername, $username, $password, $dbname) or die("Error de conexion" . mysqli_connect_error());
+        $this->conn = new Mysqli($servername, $username, $password, $dbname, $port) or die("Error de conexion" . mysqli_connect_error());
 
 
     }

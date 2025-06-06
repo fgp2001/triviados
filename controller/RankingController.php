@@ -14,4 +14,10 @@ class RankingController
     public function show() {
         $this->view->render("Ranking");
     }
+
+    public function mostrarRanking(){
+        $ranking = $this->model->obtenerRanking();
+        print_r($ranking); // DEBUG
+        $this->view->render("Ranking", ['ranking' => $ranking]);
+    }
 }

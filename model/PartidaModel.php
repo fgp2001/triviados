@@ -54,9 +54,10 @@ class PartidaModel
         return $pregunta;
     }
 
-    public function guardarRespuesta($id_usuario, $id_pregunta, $id_opcion, $id_partida){
+    public function guardarRespuesta($id_usuario, $id_pregunta, $id_opcion, $id_partida)
+    {
         //Verificamos si la opcion que se ingreso fue correcta
-        $sql = "SELECT es_correcta FROM opciones WHERE id_incremental = $id_opcion AND id_pregunta = $id_pregunta";
+        $sql = "SELECT es_correcta FROM opciones WHERE id_incremental = $id_opcion AND pregunta_id = $id_pregunta";
         $res = $this->db->query($sql);
         if (!$res) return false;
         $es_correcta = $res[0]["es_correcta"];
@@ -78,17 +79,30 @@ class PartidaModel
             $this->db->query($sqlInsert);
         }
 
-        if ($es_correcta){
+        if ($es_correcta) {
             //Se incrementa el puntaje de la partida
             $sqlPuntaje = "UPDATE partida SET puntaje_obtenido = puntaje_obtenido + 1 WHERE id_incremental = $id_partida";
             $this->db->query($sqlPuntaje);
             return true;
-        } else{
+        } else {
             //Cambia el estado a partida finalizada ya que no es correcta
             $sqlEstado = "UPDATE partida SET estado = 0 WHERE id_incremental = $id_partida";
             $this->db->query($sqlEstado);
             return false;
+
+
+        function obtenerRanking()
+        {
+            $sql = "SELECT u.nombre_usuario, COUNT(up.respondido_correcto) AS respuestas_correctas
+            FROM usuario u
+            JOIN usuario_pregunta up ON u.id_incremental = up.id_usuario
+            WHERE up.respondido_correcto = 1
+            GROUP BY u.id_incremental
+            ORDER BY respuestas_correctas DESC";
+
+            return $this->db->query($sql);
         }
+    }
 
     }
 }

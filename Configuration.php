@@ -33,7 +33,9 @@ class Configuration
             $config["database"]["server"],
             $config["database"]["user"],
             $config["database"]["dbname"],
-            $config["database"]["pass"]
+            $config["database"]["pass"],
+            $config["database"]["port"]
+
         );
     }
 

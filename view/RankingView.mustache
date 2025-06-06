@@ -1,1 +1,17 @@
 <h1 style="color:white">Ranking</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Preguntas Correctas</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#ranking}}
+            <tr>
+                <td>{{nombre_usuario}}</td>
+                <td>{{respuestas_correctas}}</td>
+            </tr>
+        {{/ranking}}
+    </tbody>
+</table>
