@@ -315,3 +315,36 @@ form {
 .partida-container button:hover {
     background-color: #ff8000;
 }
+.opcion-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.opcion-container input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    margin-right: 10px;
+}
+
+.opcion-container input[type="radio"] {
+    transform: scale(1.2); /* tamaño más grande si querés */
+    cursor: pointer;
+}
+
+.radio-title {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 20px 0 10px 0; /* arriba, derecha, abajo, izquierda */
+    align-self: flex-end; /* alinea a la izquierda dentro del form */
+}
+.botonesAVerificar{
+    display: flex;
+    align-items: center;
+    align-self: center;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+}

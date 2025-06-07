@@ -1,1 +1,39 @@
-<h1 style="color:white">Crear Pregunta</h1>
+
+<div class = "container">
+    <div class = "login-box">
+        <img src="../media/back.png" alt="volver" class="back-btn" style="cursor:pointer;" onclick="history.back()">
+        <h2> Crea Tu Pregunta </h2>
+        <form action="/triviados/CrearPregunta/agregar" method="POST">
+             <select name="Categoria" required>
+                            <option value="">Seleccione Categoria</option>
+                            <option value="1">Geografia</option>
+                            <option value="2">Historia</option>
+                            <option value="3">Ciencia</option>
+                            <option value="4">Deportes</option>
+                        </select>
+            <input type="text" name="pregunta" placeholder="Enunciado de la Pregunta" required>
+
+          <h5 class="radio-title">¿Es Correcta?</h5>
+          <div class="opcion-container">
+            <input type="text" name="Opcion1" placeholder="Opcion 1" required>
+            <input type="radio" name="esCorrecta" value="1">
+          </div>
+          <div class="opcion-container">
+            <input type="text" name="Opcion2" placeholder="Opcion 2" required>
+            <input type="radio" name="esCorrecta" value="2">
+          </div>
+          <div class="opcion-container">
+            <input type="text" name="Opcion3" placeholder="Opcion 3" required>
+            <input type="radio" name="esCorrecta" value="3">
+          </div>
+          <div class="opcion-container">
+            <input type="text" name="Opcion4" placeholder="Opcion 4" required>
+            <input type="radio" name="esCorrecta" value="4">
+          </div>
+
+
+
+            <button type="submit" value="Submit">Crear</button>
+        </form>
+    </div>
+</div>
