@@ -339,12 +339,3 @@ form {
     margin: 20px 0 10px 0; /* arriba, derecha, abajo, izquierda */
     align-self: flex-end; /* alinea a la izquierda dentro del form */
 }
-.botonesAVerificar{
-    display: flex;
-    align-items: center;
-    align-self: center;
-    text-align: center;
-    justify-content: center;
-    justify-items: center;
-    justify-self: center;
-}
