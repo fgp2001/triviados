@@ -328,7 +328,7 @@ form {
 }
 
 .opcion-container input[type="radio"] {
-    transform: scale(1.2); /* tamaño más grande si querés */
+    transform: scale(1.2);
     cursor: pointer;
 }
 
@@ -336,6 +336,6 @@ form {
     color: white;
     font-size: 16px;
     font-weight: 600;
-    margin: 20px 0 10px 0; /* arriba, derecha, abajo, izquierda */
-    align-self: flex-end; /* alinea a la izquierda dentro del form */
+    margin: 20px 0 10px 0;
+    align-self: flex-end;
 }

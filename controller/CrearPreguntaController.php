@@ -22,7 +22,8 @@ class CrearPreguntaController
         $Opcion3 = $_POST['Opcion3'];
         $Opcion4 = $_POST['Opcion4'];
         $esCorrecta = $_POST['esCorrecta'];
-        $this->model->agregarPregunta($pregunta,$Categoria);
+        $idUsuario = $_SESSION['id_incremental'];
+        $this->model->agregarPregunta($pregunta,$Categoria,$idUsuario);
         $this->model->agregarOpciones($Opcion1,$Opcion2,$Opcion3,$Opcion4,$esCorrecta);
         $this->view->render("PreguntaAVerificar");
     }
