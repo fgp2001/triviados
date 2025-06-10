@@ -1,3 +1,21 @@
-<h2>Fin de la Partida</h2>
-<p>{{mensaje}}</p>
-<a href="/triviados/Lobby/show">Volver al Lobby</a>
+<div class="fin-partida-container">
+    <h2>Fin de la Partida</h2>
+    <p>{{mensaje}}</p>
+    <p>Redirigiendo al lobby en <span id="redirect-countdown">5</span> segundos...</p>
+</div>
+
+<script>
+    let tiempoRedirigir = 5;
+    const redirectCountdownSpan = document.getElementById("redirect-countdown");
+    redirectCountdownSpan.textContent = tiempoRedirigir;
+
+    const intervaloRedirect = setInterval(() => {
+        tiempoRedirigir--;
+        redirectCountdownSpan.textContent = tiempoRedirigir;
+        if (tiempoRedirigir <= 0) {
+            clearInterval(intervaloRedirect);
+            // Redirigir al lobby
+           window.location.href = '/triviados/Lobby/show';
+        }
+    }, 1000);
+</script>

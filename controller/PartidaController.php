@@ -46,38 +46,56 @@ class PartidaController
             $pregunta['opciones'] = [];
         }
 
+        // Guardar la hora en la que se muestra la pregunta
+        $_SESSION['hora_inicio_pregunta'] = time();
+        $_SESSION['id_pregunta_actual'] = $pregunta['id_incremental'];
 
         $this->view->render("Partida", $pregunta);
     }
 
-    public function responderPregunta(){
+    public function responderPregunta() {
         if (!isset($_SESSION['id_incremental']) || !isset($_SESSION['id_partida'])) {
             $this->view->render("Error", ['mensaje' => 'Partida no iniciada']);
             return;
         }
 
-        $id_usuario = $_SESSION['id_incremental'];
-        $id_partida = $_SESSION['id_partida'];
+        // 1. Validar tiempo antes de cualquier otra cosa
+        $tiempoInicio = $_SESSION['hora_inicio_pregunta'] ?? null;
+        $tiempoLimite = 30;
 
-        if(!isset($_POST['id_pregunta']) || !isset($_POST['opcion'])){
+        if ($tiempoInicio === null) {
+            $this->view->render("Error", ['mensaje' => 'Tiempo de respuesta no disponible']);
+            return;
+        }
+
+        $tiempoActual = time();
+        $tiempoTranscurrido = $tiempoActual - $tiempoInicio;
+
+        if ($tiempoTranscurrido > $tiempoLimite) {
+            unset($_SESSION['id_partida']);
+            $this->view->render("FinPartida", ["mensaje" => "¡Se acabó el tiempo! Perdiste."]);
+            return;
+        }
+
+        // 2. Luego validás los datos
+        if (!isset($_POST['id_pregunta']) || !isset($_POST['opcion'])) {
             $this->view->render("Error", ['mensaje' => 'Datos inválidos']);
             return;
         }
 
+        $id_usuario = $_SESSION['id_incremental'];
+        $id_partida = $_SESSION['id_partida'];
         $id_pregunta = (int)$_POST['id_pregunta'];
         $id_opcion = (int)$_POST['opcion'];
 
         $correcto = $this->model->guardarRespuesta($id_usuario, $id_pregunta, $id_opcion, $id_partida);
 
         if ($correcto) {
-            //Sigue jugando
             $this->mostrarPregunta();
         } else {
-            //Termino el juego
             unset($_SESSION['id_partida']);
-            $this->view->render("FinPartida", ["mensaje" => "Se termino el juego, te equivocaste!"]);
+            $this->view->render("FinPartida", ["mensaje" => "Se terminó el juego, te equivocaste."]);
         }
-
     }
 
 
