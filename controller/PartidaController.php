@@ -73,7 +73,12 @@ class PartidaController
 
         if ($tiempoTranscurrido > $tiempoLimite) {
             unset($_SESSION['id_partida']);
-            $this->view->render("FinPartida", ["mensaje" => "¡Se acabó el tiempo! Perdiste."]);
+            $this->view->render("FinPartida", [
+                "mensaje" => "¡Se acabó el tiempo! Perdiste.",
+                "respondidas" => $_SESSION['respondidas'] ?? 0,
+                "correctas" => $_SESSION['correctas'] ?? 0
+            ]);
+            $this->limpiarContadores();
             return;
         }
 
@@ -88,14 +93,32 @@ class PartidaController
         $id_pregunta = (int)$_POST['id_pregunta'];
         $id_opcion = (int)$_POST['opcion'];
 
+        $_SESSION['respondidas']++;
+
         $correcto = $this->model->guardarRespuesta($id_usuario, $id_pregunta, $id_opcion, $id_partida);
 
+        if (!isset($_SESSION['respondidas'])) $_SESSION['respondidas'] = 0;
+        if (!isset($_SESSION['correctas'])) $_SESSION['correctas'] = 0;
+
+
         if ($correcto) {
+            $_SESSION['correctas']++;
             $this->mostrarPregunta();
         } else {
             unset($_SESSION['id_partida']);
-            $this->view->render("FinPartida", ["mensaje" => "Se terminó el juego, te equivocaste."]);
+            $this->view->render("FinPartida", [
+                "mensaje" => "Se terminó el juego, te equivocaste.",
+                "respondidas" => $_SESSION['respondidas'] ?? 0,
+                "correctas" => $_SESSION['correctas'] ?? 0
+            ]);
+            $this->limpiarContadores();
         }
+    }
+
+    private function limpiarContadores() {
+        unset($_SESSION['respondidas']);
+        unset($_SESSION['correctas']);
+
     }
 
 
