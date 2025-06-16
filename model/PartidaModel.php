@@ -80,11 +80,18 @@ class PartidaModel
         $excluir = count($ids_respondidas) > 0 ? implode(',', $ids_respondidas) : 0;
         return $excluir;
     }
-    public function obtemerCuantasNoRespodidas($excluidas)
+    public function RenovarDatosTablaPreguntaUsuario($limite, $id_usuario){
+        if($limite==0){
+            $sql="DELETE FROM usuario_pregunta WHERE id_usuario = $id_usuario";
+            $this->db->query($sql);
+        }
+    }
+    public function obtenerCuantasNoRespodidas($excluidas)
     {
         $sql = "SELECT COUNT(*) FROM preguntas WHERE id_incremental NOT IN ($excluidas)";
         $res = $this->db->query($sql);
         return $res[0]["COUNT(*)"];
+
     }
     public function indicarEntregaPregunta($id_pregunta){
         $sql="UPDATE preguntas SET veces_entregada = veces_entregada + 1 WHERE id_incremental = $id_pregunta";
@@ -108,21 +115,29 @@ class PartidaModel
         $sql="UPDATE usuarios SET puntaje=puntaje + 1 WHERE id_incremental =$id_usuario ";
         $this->db->query($sql);
     }
-
     public function obtenerUnaPreguntaNoRespondida($excluidas,$id_usuario){
-        $limite=$this->obtemerCuantasNoRespodidas($excluidas);
+        $limite=$this->obtenerCuantasNoRespodidas($excluidas);
+        $this->RenovarDatosTablaPreguntaUsuario($limite,$id_usuario);
         $numeroRandom=rand(0, $limite-1);
         $encontrado=false;
-        while($encontrado==false){
+        $iteraciones=0;
+        while($encontrado==false || $iteraciones==$limite) {
+            $sql = "SELECT * FROM preguntas WHERE id_incremental NOT IN ($excluidas)";
+            $res = $this->db->query($sql);
+            $pregunta = $res[$numeroRandom];
+            $nivel = $this->calcularNivelDeUsuario($id_usuario);
+            $dificultad = $this->calcularDificultadDePregunta($pregunta["id_incremental"]);
+            if ($dificultad == $nivel) {
+                $this->indicarEntregaPregunta($pregunta["id_incremental"]);
+                $encontrado = true;
+            } else {
+                $iteraciones++;
+            }
+        }
+        if($encontrado==false){
             $sql="SELECT * FROM preguntas WHERE id_incremental NOT IN ($excluidas)";
             $res = $this->db->query($sql);
             $pregunta=$res[$numeroRandom];
-            $nivel=$this->calcularNivelDeUsuario($id_usuario);
-            $dificultad=$this->calcularDificultadDePregunta($pregunta["id_incremental"]);
-            if($dificultad==$nivel){
-                $this->indicarEntregaPregunta($pregunta["id_incremental"]);
-                $encontrado=true;
-            }
         }
         return $pregunta;
     }
