@@ -80,7 +80,7 @@ class PartidaModel
         $excluir = count($ids_respondidas) > 0 ? implode(',', $ids_respondidas) : 0;
         return $excluir;
     }
-    public function RenovarDatosTablaPreguntaUsuario($limite, $id_usuario){
+    public function renovarDatosTablaPreguntaUsuario($limite, $id_usuario){
         if($limite==0){
             $sql="DELETE FROM usuario_pregunta WHERE id_usuario = $id_usuario";
             $this->db->query($sql);
@@ -117,7 +117,7 @@ class PartidaModel
     }
     public function obtenerUnaPreguntaNoRespondida($excluidas,$id_usuario){
         $limite=$this->obtenerCuantasNoRespodidas($excluidas);
-        $this->RenovarDatosTablaPreguntaUsuario($limite,$id_usuario);
+        $this->renovarDatosTablaPreguntaUsuario($limite,$id_usuario);
         $numeroRandom=rand(0, $limite-1);
         $encontrado=false;
         $iteraciones=0;
