@@ -156,7 +156,6 @@ class PartidaModel
         $this->db->query($sqlEstado);
     }
 
-
     public function obtenerSiguientePregunta($id_partida) {
         $id_usuario=$this->obtenerUsuarioQueJuega($id_partida);
         $excluidas=$this->obtenerPreguntasRespondidasPorUsuario($id_usuario);
@@ -167,7 +166,45 @@ class PartidaModel
         $pregunta['opciones'] = $opciones;
         $pregunta['opciones'] = $opciones ? $opciones : [];
 
+        $pregunta['color_categoria'] = $this->obtenerColorDeCategoriaDeUnaPregunta($id_pregunta);
+
+
         return $pregunta;
+    }
+
+    public function obtenerColorDeCategoriaDeUnaPregunta($id_pregunta){
+        $sqlCategoriaId = "SELECT id_categoria FROM preguntas WHERE id_incremental = $id_pregunta LIMIT 1";
+        $resultadoCategoriaId = $this->db->query($sqlCategoriaId);
+
+        if(!$resultadoCategoriaId || count($resultadoCategoriaId) == 0) {
+            return "transparent";
+        }
+
+        $categoriaId = $resultadoCategoriaId[0]["id_categoria"];
+
+        $sqlCategoriaColor = "SELECT color FROM categorias WHERE id = $categoriaId LIMIT 1";
+        $resultadoColor = $this->db->query($sqlCategoriaColor);
+
+        if(!$resultadoColor || count($resultadoColor) == 0) {
+            return "transparent";
+        }
+
+        $colorEsp = strtolower($resultadoColor[0]["color"]);
+        // Traducción de español a CSS
+        $traducciones = [
+            'rojo' => 'red',
+            'azul' => 'blue',
+            'verde' => 'green',
+            'amarillo' => 'yellow',
+            'naranja' => 'orange',
+            'violeta' => 'purple',
+            'negro' => 'black',
+            'blanco' => 'white',
+            'gris' => 'gray',
+        ];
+
+        return $traducciones[$colorEsp] ?? 'transparent';
+
     }
 
     public function guardarRespuesta($id_usuario, $id_pregunta, $id_opcion, $id_partida)
