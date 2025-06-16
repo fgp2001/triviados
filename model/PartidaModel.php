@@ -121,7 +121,7 @@ class PartidaModel
         $numeroRandom=rand(0, $limite-1);
         $encontrado=false;
         $iteraciones=0;
-        while($encontrado==false || $iteraciones==$limite) {
+        while($encontrado==false || $iteraciones<$limite) {
             $sql = "SELECT * FROM preguntas WHERE id_incremental NOT IN ($excluidas)";
             $res = $this->db->query($sql);
             $pregunta = $res[$numeroRandom];
@@ -138,6 +138,7 @@ class PartidaModel
             $sql="SELECT * FROM preguntas WHERE id_incremental NOT IN ($excluidas)";
             $res = $this->db->query($sql);
             $pregunta=$res[$numeroRandom];
+            $this->indicarEntregaPregunta($pregunta["id_incremental"]);
         }
         return $pregunta;
     }
