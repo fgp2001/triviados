@@ -8,4 +8,5 @@ class RankingModel
     {
         $this->db = $database;
     }
+
 }

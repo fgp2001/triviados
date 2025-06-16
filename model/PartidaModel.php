@@ -23,31 +23,96 @@ class PartidaModel
         return false;
 
     }
-
-    public function obtenerSiguientePregunta($id_partida) {
+    public function obtenerUsuarioQueJuega($id_partida){
         $sql = "SELECT id_usuario FROM partida WHERE id_incremental = $id_partida";
         $res = $this->db->query($sql);
         if(!$res) return false;
-        $id_usuario = $res[0]["id_usuario"];
-
-        //Obtener preguntas respondidas por usuario
-        $sql = "SELECT id_pregunta FROM usuario_pregunta WHERE id_usuario = $id_usuario AND entregado = 1";
+        return $res[0]["id_usuario"];
+    }
+    public function calcularNivelDeUsuario($id_usuario){
+        $sql = "SELECT preguntas_respondidas,puntaje FROM usuarios WHERE id_incremental = $id_usuario";
+        $res = $this->db->query($sql);
+        $preguntas = $res[0]["preguntas_respondidas"];
+        $puntajes = $res[0]["puntaje"];
+        if($preguntas >=5){
+            $calculo=($puntajes/$preguntas)*100;
+            if($calculo<=100&& $calculo>=66){
+                $nivel=3;
+            }
+            elseif ($calculo<=65 && $calculo>=33){
+                $nivel=2;
+            }
+            elseif ($calculo<=32 && $calculo>=0){
+                $nivel=1;
+            }
+        }
+        else{
+            $nivel=2;
+        }
+        return $nivel;
+    }
+    public function calcularDificultadDePregunta($id_pregunta){
+    $sql = "SELECT veces_entregada , veces_correcta FROM preguntas WHERE id_incremental = $id_pregunta";
+    $res = $this->db->query($sql);
+    $vecesEntregada = $res[0]["veces_entregada"];
+    $vecesCorrecta = $res[0]["veces_correcta"];
+    if($vecesEntregada >=5){
+        $calculo=($vecesCorrecta/$vecesEntregada)*100;
+        if($calculo<=100&& $calculo>=66){
+            $dificultad=1;
+        }
+        elseif ($calculo<=65 && $calculo>=33){
+            $dificultad=2;
+        }
+        elseif ($calculo<=32 && $calculo>=0){
+            $dificultad=3;
+        }
+    }
+    else{
+        $dificultad=2;
+    }
+    return $dificultad;
+    }
+    public function obtenerPreguntasRespondidasPorUsuario($id_usuario){
+        $sql = "SELECT id_pregunta FROM usuario_pregunta WHERE id_usuario = $id_usuario";
         $preguntas_respondidas = $this->db->query($sql);
         $ids_respondidas = array_column($preguntas_respondidas, 'id_pregunta');
         $excluir = count($ids_respondidas) > 0 ? implode(',', $ids_respondidas) : 0;
+        return $excluir;
+    }
+    public function obtemerCuantasNoRespodidas($excluidas)
+    {
+        $sql = "SELECT COUNT(*) FROM preguntas WHERE id_incremental NOT IN ($excluidas)";
+        $res = $this->db->query($sql);
+        return $res[0]["COUNT(*)"];
+    }
+    public function obtenerUnaPreguntaNoRespondida($excluidas,$id_usuario){
+        $limite=$this->obtemerCuantasNoRespodidas($excluidas);
+        $numeroRandom=rand(0, $limite-1);
+        $encontrado=false;
+        while($encontrado==false){
+            $sql="SELECT * FROM preguntas WHERE id_incremental NOT IN ($excluidas)";
+            $res = $this->db->query($sql);
+            $pregunta=$res[$numeroRandom];
+            $nivel=$this->calcularNivelDeUsuario($id_usuario);
+            $dificultad=$this->calcularDificultadDePregunta($pregunta["id_incremental"]);
+            if($dificultad==$nivel){
+                $encontrado=true;
+            }
+        }
+        return $pregunta;
+    }
+    public function obtenerOpciones($id_pregunta){
 
+    }
 
-        //Obtener siguiente pregunta no respondida
-        $sql = "SELECT * FROM preguntas WHERE id_incremental NOT IN ($excluir) LIMIT 1";
-        $pregunta = $this->db->query($sql);
-        if (!$pregunta) return false;
-
-        $pregunta = $pregunta[0];
-
-        //Obtener opciones de esta pregunta
+    public function obtenerSiguientePregunta($id_partida) {
+        $id_usuario=$this->obtenerUsuarioQueJuega($id_partida);
+        $excluidas=$this->obtenerPreguntasRespondidasPorUsuario($id_usuario);
+        $pregunta =$this->obtenerUnaPreguntaNoRespondida($excluidas,$id_usuario);
         $id_pregunta = $pregunta["id_incremental"];
-        $sqlOpciones = "SELECT * FROM opciones WHERE pregunta_id = $id_pregunta";
-        $opciones = $this->db->query($sqlOpciones);
+        $sql = "SELECT * FROM opciones WHERE pregunta_id = $id_pregunta";
+        $opciones = $this->db->query($sql);
         $pregunta['opciones'] = $opciones;
         $pregunta['opciones'] = $opciones ? $opciones : [];
 
@@ -70,12 +135,10 @@ class PartidaModel
         $sqlChequeo = "SELECT * FROM usuario_pregunta WHERE id_pregunta = $id_pregunta AND id_usuario = $id_usuario";
         $existe = $this->db->query($sqlChequeo);
         if ($existe) {
-            //Actualiza el registro
-            $sqlUpdate = "UPDATE usuario_pregunta SET entregado = $entregado, respondido_correcto = $respondido_correcto WHERE id_pregunta = $id_pregunta AND id_usuario = $id_usuario";
-            $this->db->query($sqlUpdate);
+
         } else {
             //Crea nuevo registro
-            $sqlInsert = "INSERT INTO usuario_pregunta (id_pregunta, id_usuario, entregado, respondido_correcto) VALUES ($id_pregunta, $id_usuario, $entregado, $respondido_correcto)";
+            $sqlInsert = "INSERT INTO usuario_pregunta (id_pregunta, id_usuario) VALUES ($id_pregunta, $id_usuario)";
             $this->db->query($sqlInsert);
         }
 
