@@ -86,6 +86,29 @@ class PartidaModel
         $res = $this->db->query($sql);
         return $res[0]["COUNT(*)"];
     }
+    public function indicarEntregaPregunta($id_pregunta){
+        $sql="UPDATE preguntas SET veces_entregada = veces_entregada + 1 WHERE id_incremental = $id_pregunta";
+        $this->db->query($sql);
+    }
+    public function verificarCorrecta($id_opcion,$id_pregunta){
+        $sql = "SELECT es_correcta FROM opciones WHERE id_incremental = $id_opcion AND pregunta_id = $id_pregunta";
+        $res = $this->db->query($sql);
+        $es_correcta = $res[0]["es_correcta"];
+        return $es_correcta;
+    }
+    public function insertarEnTablaUsuarioPregunta($id_pregunta,$id_usuario){
+        $sqlInsert = "INSERT INTO usuario_pregunta (id_pregunta, id_usuario) VALUES ($id_pregunta, $id_usuario)";
+        $this->db->query($sqlInsert);
+    }
+    public function indicarUsuarioRespondioUnaPregunta($id_usuario){
+        $sql = "UPDATE usuarios SET preguntas_respondidas= preguntas_respondidas +  1 WHERE id_incremental = $id_usuario";
+        $this->db->query($sql);
+    }
+    public function sumarPuntajeUsuario($id_usuario){
+        $sql="UPDATE usuarios SET puntaje=puntaje + 1 WHERE id_incremental =$id_usuario ";
+        $this->db->query($sql);
+    }
+
     public function obtenerUnaPreguntaNoRespondida($excluidas,$id_usuario){
         $limite=$this->obtemerCuantasNoRespodidas($excluidas);
         $numeroRandom=rand(0, $limite-1);
@@ -97,14 +120,26 @@ class PartidaModel
             $nivel=$this->calcularNivelDeUsuario($id_usuario);
             $dificultad=$this->calcularDificultadDePregunta($pregunta["id_incremental"]);
             if($dificultad==$nivel){
+                $this->indicarEntregaPregunta($pregunta["id_incremental"]);
                 $encontrado=true;
             }
         }
         return $pregunta;
     }
-    public function obtenerOpciones($id_pregunta){
-
+    public function sumarPuntajePartida($id_partida){
+        $sqlPuntaje = "UPDATE partida SET puntaje_obtenido = puntaje_obtenido + 1 WHERE id_incremental = $id_partida";
+        $this->db->query($sqlPuntaje);
     }
+    public function preguntaRespondidaCorrectamente($id_pregunta){
+        $sql="UPDATE preguntas SET veces_correcta = veces_correcta +1  WHERE id_incremental = $id_pregunta";
+        $this->db->query($sql);
+    }
+    public function perdioPartida($id_partida)
+    {
+        $sqlEstado = "UPDATE partida SET estado = 0 WHERE id_incremental = $id_partida";
+        $this->db->query($sqlEstado);
+    }
+
 
     public function obtenerSiguientePregunta($id_partida) {
         $id_usuario=$this->obtenerUsuarioQueJuega($id_partida);
@@ -121,36 +156,16 @@ class PartidaModel
 
     public function guardarRespuesta($id_usuario, $id_pregunta, $id_opcion, $id_partida)
     {
-        //Verificamos si la opcion que se ingreso fue correcta
-        $sql = "SELECT es_correcta FROM opciones WHERE id_incremental = $id_opcion AND pregunta_id = $id_pregunta";
-        $res = $this->db->query($sql);
-        if (!$res) return false;
-        $es_correcta = $res[0]["es_correcta"];
-
-        //Se guarda en usuario_pregunta la respuesta del usuario
-        $entregado = 1;
-        $respondido_correcto = $es_correcta ? 1 : 0;
-
-        //Verifica si ya existe registro para esta pregunta y usuario
-        $sqlChequeo = "SELECT * FROM usuario_pregunta WHERE id_pregunta = $id_pregunta AND id_usuario = $id_usuario";
-        $existe = $this->db->query($sqlChequeo);
-        if ($existe) {
-
-        } else {
-            //Crea nuevo registro
-            $sqlInsert = "INSERT INTO usuario_pregunta (id_pregunta, id_usuario) VALUES ($id_pregunta, $id_usuario)";
-            $this->db->query($sqlInsert);
-        }
-
+        $es_correcta=$this->verificarCorrecta($id_opcion,$id_pregunta);
+        $this->insertarEnTablaUsuarioPregunta($id_pregunta,$id_usuario);
+        $this->indicarUsuarioRespondioUnaPregunta($id_usuario);
         if ($es_correcta) {
-            //Se incrementa el puntaje de la partida
-            $sqlPuntaje = "UPDATE partida SET puntaje_obtenido = puntaje_obtenido + 1 WHERE id_incremental = $id_partida";
-            $this->db->query($sqlPuntaje);
+            $this->sumarPuntajeUsuario($id_usuario);
+            $this->sumarPuntajePartida($id_partida);
+            $this->preguntaRespondidaCorrectamente($id_pregunta);
             return true;
         } else {
-            //Cambia el estado a partida finalizada ya que no es correcta
-            $sqlEstado = "UPDATE partida SET estado = 0 WHERE id_incremental = $id_partida";
-            $this->db->query($sqlEstado);
+            $this->perdioPartida($id_partida);
             return false;
 
 
