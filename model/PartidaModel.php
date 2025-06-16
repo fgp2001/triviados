@@ -88,7 +88,7 @@ class PartidaModel
     }
     public function obtenerCuantasNoRespodidas($excluidas)
     {
-        $sql = "SELECT COUNT(*) FROM preguntas WHERE id_incremental NOT IN ($excluidas)";
+        $sql = "SELECT COUNT(*) FROM preguntas WHERE estado=1 AND reportado=0 AND id_incremental NOT IN ($excluidas)";
         $res = $this->db->query($sql);
         return $res[0]["COUNT(*)"];
 
@@ -121,8 +121,8 @@ class PartidaModel
         $numeroRandom=rand(0, $limite-1);
         $encontrado=false;
         $iteraciones=0;
-        while($encontrado==false || $iteraciones<$limite) {
-            $sql = "SELECT * FROM preguntas WHERE id_incremental NOT IN ($excluidas)";
+        while($encontrado==false && $iteraciones<$limite) {
+            $sql = "SELECT * FROM preguntas WHERE estado = 1 AND reportado = 0 AND id_incremental NOT IN ($excluidas)";
             $res = $this->db->query($sql);
             $pregunta = $res[$numeroRandom];
             $nivel = $this->calcularNivelDeUsuario($id_usuario);
@@ -135,7 +135,7 @@ class PartidaModel
             }
         }
         if($encontrado==false){
-            $sql="SELECT * FROM preguntas WHERE id_incremental NOT IN ($excluidas)";
+            $sql = "SELECT * FROM preguntas WHERE estado = 1 AND reportado = 0 AND id_incremental NOT IN ($excluidas)";
             $res = $this->db->query($sql);
             $pregunta=$res[$numeroRandom];
             $this->indicarEntregaPregunta($pregunta["id_incremental"]);
