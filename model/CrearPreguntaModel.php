@@ -15,7 +15,7 @@ class CrearPreguntaModel
         return $result[0]["id_mas_alto"];
     }
     public function agregarPregunta($pregunta,$categoria,$id_incrementalUsuario){
-        $sql="INSERT INTO preguntas (pregunta,estado,reportado,id_usuario,id_categoria) VALUES ('$pregunta',1,0,$id_incrementalUsuario,'$categoria')";
+        $sql="INSERT INTO preguntas (pregunta,estado,reportado,id_usuario,id_categoria) VALUES ('$pregunta',0,0,$id_incrementalUsuario,'$categoria')";
         $this->db->query($sql);
     }
     public function agregarOpciones($opcion1,$opcion2,$opcion3,$opcion4,$esCorrecta){
