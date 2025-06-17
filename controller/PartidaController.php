@@ -27,6 +27,7 @@ class PartidaController
 
         $_SESSION['id_partida'] = $id_partida;
         $this->mostrarPregunta();
+
     }
 
     public function mostrarPregunta(){
@@ -36,6 +37,17 @@ class PartidaController
             return;
         }
 
+        // 1. Si ya hay una pregunta activa, mostrar la misma
+        if (
+            isset($_SESSION['id_pregunta_actual'], $_SESSION['pregunta_data'], $_SESSION['hora_inicio_pregunta']) &&
+            !isset($_SESSION['pregunta_respondida'])
+        ) {
+            $_SESSION['pregunta_data']['hora_inicio_pregunta'] = $_SESSION['hora_inicio_pregunta'];
+            $this->view->render("Partida", $_SESSION['pregunta_data']);
+            return;
+        }
+
+
         $id_partida = $_SESSION['id_partida'];
         $pregunta = $this->model->obtenerSiguientePregunta($id_partida);
 
@@ -44,12 +56,11 @@ class PartidaController
             return;
         }
 
-        if (!isset($pregunta['opciones']) || !is_array($pregunta['opciones'])) {
-            $pregunta['opciones'] = [];
-        }
-
-        $_SESSION['hora_inicio_pregunta'] = time();
         $_SESSION['id_pregunta_actual'] = $pregunta['id_incremental'];
+        $_SESSION['pregunta_data'] = $pregunta;
+        $_SESSION['hora_inicio_pregunta'] = time();
+        unset($_SESSION['pregunta_respondida']); // Por si quedó de antes
+        $pregunta['hora_inicio_pregunta'] = $_SESSION['hora_inicio_pregunta'];
 
         $this->view->render("Partida", $pregunta);
     }
@@ -73,7 +84,12 @@ class PartidaController
 
         if ($tiempoTranscurrido > $tiempoLimite) {
             unset($_SESSION['id_partida']);
-            $this->view->render("FinPartida", ["mensaje" => "¡Se acabó el tiempo! Perdiste."]);
+            $this->view->render("FinPartida", [
+                "mensaje" => "¡Se acabó el tiempo! Perdiste.",
+                "respondidas" => $_SESSION['respondidas'] ?? 0,
+                "correctas" => $_SESSION['correctas'] ?? 0
+            ]);
+            $this->limpiarContadores();
             return;
         }
 
@@ -82,6 +98,10 @@ class PartidaController
             return;
         }
 
+        if (!isset($_SESSION['respondidas'])) $_SESSION['respondidas'] = 0;
+        if (!isset($_SESSION['correctas'])) $_SESSION['correctas'] = 0;
+        $_SESSION['respondidas']++;
+
         $id_usuario = $_SESSION['id_incremental'];
         $id_partida = $_SESSION['id_partida'];
         $id_pregunta = (int)$_POST['id_pregunta'];
@@ -89,13 +109,36 @@ class PartidaController
 
         $correcto = $this->model->guardarRespuesta($id_usuario, $id_pregunta, $id_opcion, $id_partida);
 
+
         if ($correcto) {
-            $this->mostrarPregunta();
+            $_SESSION['correctas']++;
+            $_SESSION['pregunta_respondida'] = true; // YA LA RESPONDIMOS BIEN
+            header("Location: /triviados/Partida/mostrarPregunta"); //Entonces buscamos la siguiente
+            exit;
         } else {
             unset($_SESSION['id_partida']);
-            $this->view->render("FinPartida", ["mensaje" => "Se terminó el juego, te equivocaste."]);
+            $this->view->render("FinPartida", [
+                "mensaje" => "Se terminó el juego, te equivocaste.",
+                "respondidas" => $_SESSION['respondidas'] ?? 0,
+                "correctas" => $_SESSION['correctas'] ?? 0
+            ]);
+            $this->limpiarContadores();
         }
     }
+
+    private function limpiarContadores() {
+        unset($_SESSION['respondidas']);
+        unset($_SESSION['correctas']);
+        unset($_SESSION['id_pregunta_actual']);
+        unset($_SESSION['pregunta_data']);
+        unset($_SESSION['hora_inicio_pregunta']);
+        unset($_SESSION['pregunta_respondida']);
+    }
+
+
+    /*public function show(){
+        $this->view->render("Partida");
+    }*/
 }
 
 ?>

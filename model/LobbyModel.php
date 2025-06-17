@@ -31,5 +31,16 @@ class LobbyModel
 
         return '/triviados/img/default-avatar.jpg';
         }
+    public function getPuntajeUsuario($nombre_usuario) {
+
+        $sql = "SELECT puntaje FROM usuarios WHERE nombre_usuario = '$nombre_usuario' LIMIT 1";
+        $resultado = $this->db->query($sql);
+
+        if ($resultado !== false && count($resultado) > 0) {
+            return $resultado[0]['puntaje'];
+        }
+
+        return 0;
+    }
 
 }

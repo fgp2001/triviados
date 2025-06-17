@@ -21,8 +21,10 @@ class LobbyController{
         }
 
         $foto = $this->model->getImagenPerfil($nombre) ?? '/triviados/img/default-avatar.jpg';
+        $puntaje = $this->model->getPuntajeUsuario($nombre);
 
-        $this->view->render("Lobby", ['nombre_usuario' => $nombre, 'foto' => $foto]);
+
+        $this->view->render("Lobby", ['nombre_usuario' => $nombre, 'foto' => $foto, 'puntaje' => $puntaje]);
 
     }
 }

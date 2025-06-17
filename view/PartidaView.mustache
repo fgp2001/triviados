@@ -1,4 +1,4 @@
-<div class="partida-container">
+<div class="partida-container" style="background-color: {{color_categoria}};">
     <h2>Pregunta</h2>
     <p>{{pregunta}}</p>
 
@@ -22,6 +22,15 @@
 
 <script>
     let tiempoRestante = 30;
+
+        {{#hora_inicio_pregunta}}
+        const tiempoInicio = {{hora_inicio_pregunta}};
+        const tiempoAhora = Math.floor(Date.now() / 1000);
+        const transcurrido = tiempoAhora - tiempoInicio;
+        tiempoRestante = 30 - transcurrido;
+        if (tiempoRestante < 0) tiempoRestante = 0;
+        {{/hora_inicio_pregunta}}
+
     const countdownSpan = document.getElementById("countdown");
 
     const intervalo = setInterval(() => {
@@ -30,7 +39,6 @@
 
         if (tiempoRestante <= 0) {
             clearInterval(intervalo);
-            // Enviar el formulario aunque no haya opción seleccionada
             document.getElementById("formulario-respuesta").submit();
         }
     }, 1000);
