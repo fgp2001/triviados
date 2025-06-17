@@ -11,7 +11,7 @@ class PartidaModel
 
     public function crearPartida($id_usuario){
         $fecha_inicio = date('Y-m-d H:i:s');
-        $estado = 1; // Activa
+        $estado = 1;
         $puntaje_obtenido = 0;
 
         $sql = "INSERT INTO partida (id_usuario, fecha_inicio, estado, puntaje_obtenido) VALUES ($id_usuario, '$fecha_inicio', $estado, $puntaje_obtenido)";
@@ -35,7 +35,6 @@ class PartidaModel
         $preguntas_respondidas = $this->db->query($sql);
         $ids_respondidas = array_column($preguntas_respondidas, 'id_pregunta');
         $excluir = count($ids_respondidas) > 0 ? implode(',', $ids_respondidas) : 0;
-
 
         //Obtener siguiente pregunta no respondida
         $sql = "SELECT * FROM preguntas WHERE id_incremental NOT IN ($excluir) LIMIT 1";
@@ -89,6 +88,7 @@ class PartidaModel
             $sqlEstado = "UPDATE partida SET estado = 0 WHERE id_incremental = $id_partida";
             $this->db->query($sqlEstado);
             return false;
+        }
 
 
         function obtenerRanking()
@@ -102,7 +102,7 @@ class PartidaModel
 
             return $this->db->query($sql);
         }
-    }
+
 
     }
 }

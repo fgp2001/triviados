@@ -16,25 +16,27 @@ class PartidaController
             $this->view->render("Error", ["mensaje" => "Usuario no autenticado"]);
             return;
         }
-        //Crea nueva partida
+
         $id_usuario = $_SESSION['id_incremental'];
         $id_partida = $this->model->crearPartida($id_usuario);
+
         if (!$id_partida) {
             $this->view->render("Error", ["mensaje" => "No se pudo iniciar la partida"]);
             return;
         }
+
         $_SESSION['id_partida'] = $id_partida;
         $this->mostrarPregunta();
-
     }
 
     public function mostrarPregunta(){
+
         if (!isset($_SESSION['id_partida'])) {
             $this->view->render("Error", ['mensaje' => 'Partida no iniciada']);
             return;
         }
-        $id_partida = $_SESSION['id_partida'];
 
+        $id_partida = $_SESSION['id_partida'];
         $pregunta = $this->model->obtenerSiguientePregunta($id_partida);
 
         if (!$pregunta) {
@@ -46,7 +48,6 @@ class PartidaController
             $pregunta['opciones'] = [];
         }
 
-        // Guardar la hora en la que se muestra la pregunta
         $_SESSION['hora_inicio_pregunta'] = time();
         $_SESSION['id_pregunta_actual'] = $pregunta['id_incremental'];
 
@@ -59,7 +60,6 @@ class PartidaController
             return;
         }
 
-        // 1. Validar tiempo antes de cualquier otra cosa
         $tiempoInicio = $_SESSION['hora_inicio_pregunta'] ?? null;
         $tiempoLimite = 30;
 
@@ -77,7 +77,6 @@ class PartidaController
             return;
         }
 
-        // 2. Luego validás los datos
         if (!isset($_POST['id_pregunta']) || !isset($_POST['opcion'])) {
             $this->view->render("Error", ['mensaje' => 'Datos inválidos']);
             return;
@@ -97,11 +96,6 @@ class PartidaController
             $this->view->render("FinPartida", ["mensaje" => "Se terminó el juego, te equivocaste."]);
         }
     }
-
-
-    /*public function show(){
-        $this->view->render("Partida");
-    }*/
 }
 
 ?>
