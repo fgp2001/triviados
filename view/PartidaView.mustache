@@ -1,23 +1,23 @@
-<div class="partida-container" style="background-color: {{color_categoria}};">
-    <h2>Pregunta</h2>
+<div class="partida-container">
+    <img src="../media/{{nombre_categoria}}.png" alt="{{nombre_categoria}}">
+    <h2>Pregunta de {{nombre_categoria}}</h2>
     <p>{{pregunta}}</p>
 
-    <div style="font-weight: bold; font-size: 20px; color: red; margin-bottom: 10px;">
+    <div class="tiempo_restante">
         Tiempo restante: <span id="countdown">30</span> segundos
     </div>
 
     <form id="formulario-respuesta" method="post" action="/triviados/Partida/responderPregunta">
         <input type="hidden" name="id_pregunta" value="{{id_incremental}}">
-
-        {{#opciones}}
-            <label>
-                <input type="radio" name="opcion" value="{{id_incremental}}">
-                {{opcion}}
-            </label><br>
-        {{/opciones}}
-
+            {{#opciones}}
+                <label style="background-color: {{color_categoria}}">
+                    <input type="radio" name="opcion" value="{{id_incremental}}">
+                    {{opcion}}
+                </label><br>
+            {{/opciones}}
         <button type="submit">Responder</button>
     </form>
+    <p>Racha actual: {{correctas}}</p>
 </div>
 
 <script>

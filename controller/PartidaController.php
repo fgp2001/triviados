@@ -37,7 +37,6 @@ class PartidaController
             return;
         }
 
-        // 1. Si ya hay una pregunta activa, mostrar la misma
         if (
             isset($_SESSION['id_pregunta_actual'], $_SESSION['pregunta_data'], $_SESSION['hora_inicio_pregunta']) &&
             !isset($_SESSION['pregunta_respondida'])
@@ -61,6 +60,7 @@ class PartidaController
         $_SESSION['hora_inicio_pregunta'] = time();
         unset($_SESSION['pregunta_respondida']); // Por si quedó de antes
         $pregunta['hora_inicio_pregunta'] = $_SESSION['hora_inicio_pregunta'];
+        $pregunta['correctas']=$_SESSION['correctas'] ?? 0;
 
         $this->view->render("Partida", $pregunta);
     }

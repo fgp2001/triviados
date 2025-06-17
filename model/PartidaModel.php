@@ -166,45 +166,39 @@ class PartidaModel
         $pregunta['opciones'] = $opciones;
         $pregunta['opciones'] = $opciones ? $opciones : [];
 
-        $pregunta['color_categoria'] = $this->obtenerColorDeCategoriaDeUnaPregunta($id_pregunta);
+        $categoria = $this->obtenerColorYNombreDeCategoriaDeUnaPregunta($id_pregunta);
+        $pregunta['nombre_categoria'] = $categoria['nombre'];
+        $pregunta['color_categoria'] = $categoria['color'];
 
 
         return $pregunta;
     }
 
-    public function obtenerColorDeCategoriaDeUnaPregunta($id_pregunta){
-        $sqlCategoriaId = "SELECT id_categoria FROM preguntas WHERE id_incremental = $id_pregunta LIMIT 1";
-        $resultadoCategoriaId = $this->db->query($sqlCategoriaId);
+    public function obtenerColorYNombreDeCategoriaDeUnaPregunta($id_pregunta){
+        $sql = "SELECT c.nombre, c.color FROM preguntas p JOIN categorias c 
+                            ON p.id_categoria = c.id WHERE p.id_incremental = $id_pregunta LIMIT 1";
+        $resultadoColorYCategoria = $this->db->query($sql);
 
-        if(!$resultadoCategoriaId || count($resultadoCategoriaId) == 0) {
-            return "transparent";
+        if (!$resultadoColorYCategoria || count($resultadoColorYCategoria) == 0) {
+            return ['nombre' => 'Sin categoría', 'color' => '#cccccc'];
         }
 
-        $categoriaId = $resultadoCategoriaId[0]["id_categoria"];
-
-        $sqlCategoriaColor = "SELECT color FROM categorias WHERE id = $categoriaId LIMIT 1";
-        $resultadoColor = $this->db->query($sqlCategoriaColor);
-
-        if(!$resultadoColor || count($resultadoColor) == 0) {
-            return "transparent";
-        }
-
-        $colorEsp = strtolower($resultadoColor[0]["color"]);
-        // Traducción de español a CSS
+        $categoria = $resultadoColorYCategoria[0]['nombre'];
+        $color = strtolower($resultadoColorYCategoria[0]['color']);
         $traducciones = [
-            'rojo' => 'red',
-            'azul' => 'blue',
-            'verde' => 'green',
-            'amarillo' => 'yellow',
-            'naranja' => 'orange',
-            'violeta' => 'purple',
+            'rojo' => '#ff6961',
+            'azul' => '#84b6f4',
+            'verde' => '#77dd77',
+            'amarillo' => '#fdfd96',
+            'naranja' => '#ee916c',
+            'violeta' => '#bc98f3',
             'negro' => 'black',
             'blanco' => 'white',
-            'gris' => 'gray',
+            'gris' => '#bdbfbf',
         ];
 
-        return $traducciones[$colorEsp] ?? 'transparent';
-
+        return ['nombre' => $categoria,
+                'color' => $traducciones[$color] ?? '#cccccc'];
     }
 
     public function guardarRespuesta($id_usuario, $id_pregunta, $id_opcion, $id_partida)
