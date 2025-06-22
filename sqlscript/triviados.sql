@@ -297,6 +297,19 @@ CREATE TABLE `usuario_pregunta` (
   `id_pregunta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+
+CREATE TABLE `respuestas_partida` (
+`id_incremental` INT AUTO_INCREMENT PRIMARY KEY,
+`id_partida` INT NOT NULL,
+`id_pregunta` INT NOT NULL,
+`id_opcion_seleccionada` INT NOT NULL,
+`es_correcta` TINYINT(1) NOT NULL,
+FOREIGN KEY (`id_partida`) REFERENCES `partida`(`id_incremental`),
+FOREIGN KEY (`id_pregunta`) REFERENCES `preguntas`(`id_incremental`),
+FOREIGN KEY (`id_opcion_seleccionada`) REFERENCES `opciones`(`id_incremental`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Índices para tablas volcadas
 --
@@ -385,6 +398,8 @@ ALTER TABLE `usuarios`
 ALTER TABLE `usuario_pregunta`
   MODIFY `id_incremental` int(11) NOT NULL AUTO_INCREMENT;
 
+ALTER TABLE `respuestas_partida`
+    ADD COLUMN racha INT DEFAULT 0;
 --
 -- Restricciones para tablas volcadas
 --

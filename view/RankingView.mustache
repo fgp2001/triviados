@@ -1,17 +1,10 @@
-<h1 style="color:white">Ranking</h1>
-<table>
-    <thead>
-        <tr>
-            <th>Usuario</th>
-            <th>Preguntas Correctas</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#ranking}}
-            <tr>
-                <td>{{nombre_usuario}}</td>
-                <td>{{respuestas_correctas}}</td>
-            </tr>
-        {{/ranking}}
-    </tbody>
-</table>
+<h2 style="color: #007bff;">🏆 Ranking por Puntaje</h2>
+<ol>
+{{#ranking_puntaje}}
+    <li style="font-size: 1.2em;">
+        <span style="color: #4CAF50;">{{nombre_usuario}}</span> -
+        <span style="color: #FF9800;">{{total_puntaje}} puntos</span>
+    </li>
+{{/ranking_puntaje}}
+</ol>
+

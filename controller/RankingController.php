@@ -12,12 +12,10 @@ class RankingController
 
 
     public function show() {
-        $this->view->render("Ranking");
-    }
+        $rankingPuntaje = $this->model->obtenerRankingPorPuntaje();
 
-    public function mostrarRanking(){
-        $ranking = $this->model->obtenerRanking();
-        print_r($ranking); // DEBUG
-        $this->view->render("Ranking", ['ranking' => $ranking]);
-    }
+        $this->view->render("Ranking", [
+            'ranking_puntaje' => $rankingPuntaje
+        ]);
+        }
 }
