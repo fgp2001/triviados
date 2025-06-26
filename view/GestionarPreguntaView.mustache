@@ -1,0 +1,44 @@
+
+
+<h1 style="text-align: center; color: white;">Gestión de Preguntas</h1>
+
+
+<div style="display: flex; justify-content: flex-end; margin: 10px 20px;">
+    <a href="/triviados/PanelEditor/show" class="btn">Volver al panel</a>
+</div>
+
+{{#mensaje}}
+    <div style="text-align: center; background-color: #d4edda; color: #155724; padding: 10px; margin: 10px auto; width: 60%; border: 1px solid #c3e6cb; border-radius: 5px;">
+        {{mensaje}}
+    </div>
+{{/mensaje}}
+
+
+
+<table style="width: 90%; margin: auto; color: white; border-collapse: collapse; margin-bottom: 30px;">
+    <tr>
+        <th style="text-align: left;">ID</th>
+        <th style="text-align: left;">Pregunta</th>
+        <th style="text-align: center;">Acciones</th>
+    </tr>
+
+    {{#preguntas}}
+        <tr>
+            <td>{{id}}</td>
+            <td>
+                <form method="POST" action="/triviados/GestionarPregunta/modificar" style="margin: 0;">
+                    <input type="hidden" name="id" value="{{id}}">
+                    <textarea name="pregunta" rows="2" style="width: 100%;">{{pregunta}}</textarea>
+            </td>
+            <td style="text-align: center;">
+                <button type="submit" class="btn">Guardar</button>
+                </form>
+                <a href="/triviados/GestionarPregunta/baja?id={{id}}"
+                class="btn"
+                onclick="return confirm('¿Estás seguro de eliminar esta pregunta?');">
+                Eliminar
+                </a>
+            </td>
+        </tr>
+    {{/preguntas}}
+</table>

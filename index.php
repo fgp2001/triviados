@@ -24,7 +24,8 @@ if (isset($publicos[$controller]) && in_array($method, $publicos[$controller])) 
             $permitido = ($tipoUsuario === 'admin');
             break;
         case 'PanelEditor':
-            $permitido = ($tipoUsuario === 'editor');
+        case 'GestionarPregunta':
+        $permitido = ($tipoUsuario === 'editor');
             break;
         case 'Lobby':
         case 'Partida':

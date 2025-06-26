@@ -20,6 +20,11 @@ require_once ("controller/RankingController.php");
 require_once ("model/RankingModel.php");
 require_once ("controller/CrearPreguntaController.php");
 require_once ("model/CrearPreguntaModel.php");
+require_once("controller/PanelEditorController.php");
+require_once("model/PanelEditorModel.php");
+require_once("controller/GestionarPreguntaController.php");
+require_once("model/GestionarPreguntaModel.php");
+
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
@@ -93,6 +98,20 @@ class Configuration
     public function getCrearPreguntaController(){
         return new CrearPreguntaController(
             new CrearPreguntaModel($this->getDatabase()),
+            $this->getViewer()
+        );
+    }
+
+    public function getPanelEditorController(){
+        return new PanelEditorController(
+            new PanelEditorModel($this->getDatabase()),
+            $this->getViewer()
+        );
+    }
+
+    public function getGestionarPreguntaController(){
+        return new GestionarPreguntaController(
+            new GestionarPreguntaModel($this->getDatabase()),
             $this->getViewer()
         );
     }
