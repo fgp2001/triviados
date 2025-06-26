@@ -24,6 +24,7 @@ require_once("controller/PanelEditorController.php");
 require_once("model/PanelEditorModel.php");
 require_once("controller/GestionarPreguntaController.php");
 require_once("model/GestionarPreguntaModel.php");
+require_once("controller/LogoutController.php");
 
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
@@ -114,6 +115,11 @@ class Configuration
             new GestionarPreguntaModel($this->getDatabase()),
             $this->getViewer()
         );
+    }
+
+    public function getLogoutController()
+    {
+        return new LogoutController();
     }
 
     public function getRouter()

@@ -47,7 +47,13 @@ class loginController{
     }
 
     function show(){
-        $this->view->render("Login");
-    }
+        $mensaje = null;
+        if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'sesion_cerrada') {
+            $mensaje = "Sesión cerrada correctamente.";
+        }
+
+        $this->view->render("Login", [
+            "mensaje" => $mensaje
+        ]);    }
 }
 
