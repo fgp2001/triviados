@@ -9,7 +9,7 @@ $method = $_GET['method'] ?? null;
 // NO REQUIEREN LOGIN SON PUBLICOS
 $publicos = [
     'Login' => ['show', 'ejecutarLogin'],
-    'Register' => ['show', 'registrar' , 'validar', 'enviarEmailValidacion'],
+    'Register' => ['show', 'registrar' , 'validar', 'enviarEmailValidacion', 'validarEmailAjax'],
     'Logout' => ['ejecutar']
 ];
 

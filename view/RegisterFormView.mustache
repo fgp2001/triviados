@@ -21,7 +21,8 @@
             <input type="text" name="pais" id="pais" placeholder="País" required readonly>
             <input type="text" name="ciudad" id="ciudad" placeholder="Ciudad" required readonly>
 
-            <input type="email" name="email" placeholder="Email" required>
+            <input type="email" name="email" id="email" placeholder="Email" required>
+            <span id="email-error" style="color: red; display: none;">Este email ya está registrado</span>
             <input type="password" name="password" placeholder="Contraseña" required>
             <input type="password" name="password2" placeholder="Repetir contraseña" required>
             <input type="text" name="usuario" placeholder="Nombre de usuario" required>
@@ -33,3 +34,37 @@
         </form>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const emailInput = document.getElementById("email");
+        const errorMsg = document.getElementById("email-error");
+        const submitBtn = document.querySelector("form button[type='submit']");
+
+        emailInput.addEventListener("blur", function () {
+            const email = emailInput.value;
+
+            if (email.length > 5) {
+                fetch("/triviados/Register/validarEmailAjax", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: "email=" + encodeURIComponent(email)
+                })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (!data.disponible) {
+                                emailInput.style.border = "2px solid red";
+                                errorMsg.style.display = "inline";
+                                submitBtn.disabled = true;
+                            } else {
+                                emailInput.style.border = "2px solid green";
+                                errorMsg.style.display = "none";
+                                submitBtn.disabled = false;
+                            }
+                        });
+            }
+        });
+    });
+</script>

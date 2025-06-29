@@ -24,6 +24,12 @@ class RegisterModel
         return $stmt->affected_rows > 0;
     }
 
+    public function emailYaExiste($email){
+        $sql = "SELECT COUNT(*) AS cantidad FROM usuarios WHERE email = '$email'";
+        $res = $this->db->query($sql);
+        return $res[0]["cantidad"] > 0;
+    }
+
 
 
 }

@@ -73,7 +73,20 @@ class RegisterController
 
     }
 
-    function show(){
+    public function validarEmailAjax(){
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $email = $_POST["email"];
+
+            $existe = $this->model->emailYaExiste($email);
+
+            header('Content-Type: application/json');
+            echo json_encode(['disponible' => !$existe]);
+            exit;
+    }
+    }
+
+    public function show(){
         $this->view->render("RegisterForm");
     }
+
 }

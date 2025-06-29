@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-06-2025 a las 20:57:03
+-- Tiempo de generación: 29-06-2025 a las 16:08:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -180,7 +180,15 @@ INSERT INTO `opciones` (`id_incremental`, `pregunta_id`, `opcion`, `es_correcta`
 (117, 30, 'Brasil', 0),
 (118, 30, 'Francia', 1),
 (119, 30, 'Alemania', 0),
-(120, 30, 'Croacia', 0);
+(120, 30, 'Croacia', 0),
+(121, 31, '1778', 1),
+(122, 31, '1850', 0),
+(123, 31, '1735', 0),
+(124, 31, '1802', 0),
+(125, 32, '1778', 1),
+(126, 32, '1850', 0),
+(127, 32, '1735', 0),
+(128, 32, '1802', 0);
 
 -- --------------------------------------------------------
 
@@ -195,6 +203,13 @@ CREATE TABLE `partida` (
   `estado` tinyint(1) NOT NULL,
   `puntaje_obtenido` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `partida`
+--
+
+INSERT INTO `partida` (`id_incremental`, `id_usuario`, `fecha_inicio`, `estado`, `puntaje_obtenido`) VALUES
+(1, 3, '2025-06-26 15:22:08', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -219,7 +234,7 @@ CREATE TABLE `preguntas` (
 
 INSERT INTO `preguntas` (`id_incremental`, `pregunta`, `estado`, `reportado`, `id_usuario`, `id_categoria`, `veces_entregada`, `veces_correcta`) VALUES
 (1, '¿Cuál es la capital de Italia?', 1, 0, 3, 1, 0, 0),
-(2, '¿Cuál es el río más largo del mundo?', 1, 0, 3, 2, 0, 0),
+(2, '¿Cuál es el río más largo del mundo?', 1, 0, 3, 2, 1, 0),
 (3, '¿En qué año comenzó la Segunda Guerra Mundial?', 1, 0, 3, 2, 0, 0),
 (4, '¿Qué planeta es el más cercano al sol?', 1, 0, 3, 3, 0, 0),
 (5, '¿Quién escribió \'Cien años de soledad\'?', 1, 0, 3, 4, 0, 0),
@@ -241,7 +256,7 @@ INSERT INTO `preguntas` (`id_incremental`, `pregunta`, `estado`, `reportado`, `i
 (21, '¿Cuál es el metal más ligero?', 1, 0, 3, 3, 0, 0),
 (22, '¿Qué escritor creó a Sherlock Holmes?', 1, 0, 3, 2, 0, 0),
 (23, '¿Cuál es el país con más habitantes?', 1, 0, 3, 1, 0, 0),
-(24, '¿Cuál es el órgano más grande del cuerpo humano?', 1, 0, 3, 3, 0, 0),
+(24, '¿Cuál es el órgano más grande del cuerpo humano?', 1, 0, 3, 3, 1, 1),
 (25, '¿Qué pintura famosa hizo Vincent Van Gogh?', 1, 0, 3, 4, 0, 0),
 (26, '¿Cuál es el elemento más abundante en el aire?', 1, 0, 3, 3, 0, 0),
 (27, '¿Qué país inventó el sushi?', 1, 0, 3, 1, 0, 0),
@@ -294,7 +309,7 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id_incremental`, `email`, `password`, `nombre_completo`, `fecha_nacimiento`, `sexo`, `pais`, `ciudad`, `nombre_usuario`, `foto_perfil`, `validado`, `token_validacion`, `tipo_Usuario`, `preguntas_respondidas`, `puntaje`) VALUES
 (1, 'admin@admin.com', 'admin123', 'Admin Principal', '1990-01-01', 'otro', 'Argentina', 'Buenos Aires', 'admin', 'admin.jpg', 1, NULL, 'admin', 0, 0),
 (2, 'editor@editor.com', 'editor123', 'Editor Principal', '1990-01-01', 'otro', 'Argentina', 'Buenos Aires', 'editor', 'editor.jpg', 1, NULL, 'editor', 0, 0),
-(3, 'fgp_2001@hotmail.com', 'facu123', 'Facundo Pereira', '2001-01-15', 'masculino', 'Argentina', 'El Palomar', 'Facupe', 'img/Facupe.png', 1, '113ecf408e93b5124ba9e8ddffb921d3', 'Jugador', 0, 0);
+(3, 'fgp_2001@hotmail.com', 'facu123', 'Facundo Pereira', '2001-01-15', 'masculino', 'Argentina', 'El Palomar', 'Facupe', 'img/Facupe.png', 1, '113ecf408e93b5124ba9e8ddffb921d3', 'Jugador', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -307,6 +322,14 @@ CREATE TABLE `usuario_pregunta` (
   `id_usuario` int(11) NOT NULL,
   `id_pregunta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuario_pregunta`
+--
+
+INSERT INTO `usuario_pregunta` (`id_incremental`, `id_usuario`, `id_pregunta`) VALUES
+(0, 3, 24),
+(0, 3, 2);
 
 --
 -- Índices para tablas volcadas
@@ -340,6 +363,12 @@ ALTER TABLE `respuestas_partida`
   ADD KEY `id_opcion_seleccionada` (`id_opcion_seleccionada`);
 
 --
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id_incremental`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -347,25 +376,31 @@ ALTER TABLE `respuestas_partida`
 -- AUTO_INCREMENT de la tabla `opciones`
 --
 ALTER TABLE `opciones`
-  MODIFY `id_incremental` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id_incremental` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT de la tabla `partida`
 --
 ALTER TABLE `partida`
-  MODIFY `id_incremental` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_incremental` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-  MODIFY `id_incremental` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_incremental` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas_partida`
 --
 ALTER TABLE `respuestas_partida`
   MODIFY `id_incremental` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id_incremental` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
