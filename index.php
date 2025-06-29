@@ -26,6 +26,7 @@ if (isset($publicos[$controller]) && in_array($method, $publicos[$controller])) 
             break;
         case 'PanelEditor':
         case 'GestionarPregunta':
+        case 'AprobarSugerencias':
         $permitido = ($tipoUsuario === 'editor');
             break;
         case 'Lobby':

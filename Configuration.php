@@ -25,6 +25,8 @@ require_once("model/PanelEditorModel.php");
 require_once("controller/GestionarPreguntaController.php");
 require_once("model/GestionarPreguntaModel.php");
 require_once("controller/LogoutController.php");
+require_once("model/AprobarSugerenciasModel.php");
+require_once("controller/AprobarSugerenciasController.php");
 
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
@@ -113,6 +115,13 @@ class Configuration
     public function getGestionarPreguntaController(){
         return new GestionarPreguntaController(
             new GestionarPreguntaModel($this->getDatabase()),
+            $this->getViewer()
+        );
+    }
+
+    public function getAprobarSugerenciasController(){
+        return new AprobarSugerenciasController(
+            new AprobarSugerenciasModel($this->getDatabase()),
             $this->getViewer()
         );
     }
