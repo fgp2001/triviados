@@ -135,10 +135,10 @@ class PartidaController
         unset($_SESSION['pregunta_respondida']);
     }
 
-
-    /*public function show(){
-        $this->view->render("Partida");
-    }*/
+    public function reportarPregunta() {
+        $pregunta = $_SESSION['id_pregunta_actual'];
+        $this->model->reportarPregunta($pregunta);
+    }
 }
 
 ?>

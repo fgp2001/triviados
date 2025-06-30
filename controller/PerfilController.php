@@ -14,7 +14,7 @@ class PerfilController
 
     public function show()
     {
-        $usuario = $_SESSION['nombre_usuario'] ?? 'Invitado';
+        $usuario = $_GET['nombre_usuario'] ?? 'Invitado';
 
         $perfilDatos = $this->model->getPerfilDatos($usuario);
 

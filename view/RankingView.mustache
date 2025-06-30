@@ -6,7 +6,7 @@
 <ol>
 {{#ranking_puntaje}}
     <li style="font-size: 1.2em;">
-        <span style="color: #4CAF50;">{{nombre_usuario}}</span> -
+        <span style="color: #4CAF50;"onclick="window.location.href='/triviados/Perfil/show?nombre_usuario={{nombre_usuario}}';">{{nombre_usuario}}</span> -
         <span style="color: #FF9800;">{{total_puntaje}} puntos</span>
     </li>
 {{/ranking_puntaje}}

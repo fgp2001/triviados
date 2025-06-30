@@ -230,4 +230,9 @@ class PartidaModel
     }
 
     }
+
+    public function reportarPregunta($pregunta){
+        $sql= "UPDATE preguntas SET reportado =1 WHERE id_incremental = $pregunta";
+        $this->db->query($sql);
+    }
 }

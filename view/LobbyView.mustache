@@ -3,7 +3,7 @@
 
     <img src="{{foto}}" alt="Foto de perfil" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #ccc;">
 
-    <a href="/triviados/Perfil/show" class="btn">Mi perfil</a>
+    <a href="/triviados/Perfil/show?nombre_usuario={{nombre_usuario}}" class="btn">Mi perfil</a>
 
     <form method="POST" action="/triviados/Logout/ejecutar" style="display: inline;">
         <button type="submit" class="btn">Cerrar sesión</button>
