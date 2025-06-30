@@ -22,4 +22,16 @@ class PerfilController
 
     }
 
+    public function mostrarQR(){
+        require_once(__DIR__ . '/../libs/phpqrcode/qrlib.php');
+
+        $usuario = $_GET['nombre_usuario'] ?? 'Invitado';
+
+        $url = "/triviados/Perfil/show?nombre_usuario=" . urlencode($usuario);
+
+        header('Content-Type: image/png');
+        QRcode::png($url, false, QR_ECLEVEL_L, 6, 2);
+        exit;
+    }
+
 }

@@ -206,153 +206,162 @@ form {
     font-family: Agrandir, sans-serif;
 }
 
-.perfil-container img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    display: block;
-    margin: 10px auto;
+.perfil-container {
+    .imagen-perfil {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        display: block;
+        margin: 10px auto;
+    }
+    .qr{
+        width: 150px;
+        height: 150px;
+        display: block;
+        margin: 10px auto;
+    }
 }
 
-.perfil-container a {
-    color: #66ccff;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 20px;
-}
+    .perfil-container a {
+        color: #66ccff;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 20px;
+    }
 
-.perfil-container a:hover {
-    text-decoration: underline;
-}
+    .perfil-container a:hover {
+        text-decoration: underline;
+    }
 
-.btn {
-    background-color: #d66b0e;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 16px;
-    font-family: Agrandir, sans-serif;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    .btn {
+        background-color: #d66b0e;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 16px;
+        font-family: Agrandir, sans-serif;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-.btn:hover {
-    background-color: #ff8000;
-}
+    .btn:hover {
+        background-color: #ff8000;
+    }
 
-.big {
-    font-size: 20px;
-    padding: 14px 28px;
-}
-.btn.big:last-child {
-    margin-bottom: 50px; /* o lo que necesites */
-}
-.partida-container {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    padding: 40px;
-    border-radius: 30px;
-    width: 90%;
-    max-width: 600px;
-    margin: 60px auto;
-    box-sizing: border-box;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-}
+    .big {
+        font-size: 20px;
+        padding: 14px 28px;
+    }
+    .btn.big:last-child {
+        margin-bottom: 50px; /* o lo que necesites */
+    }
+    .partida-container {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        padding: 40px;
+        border-radius: 30px;
+        width: 90%;
+        max-width: 600px;
+        margin: 60px auto;
+        box-sizing: border-box;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
 
-.partida-container img {
-    width: 70px;
-    display: block;
-    margin: auto;
-}
+    .partida-container img {
+        width: 70px;
+        display: block;
+        margin: auto;
+    }
 
-.partida-container h2 {
-    color: #d66b0e;
-    font-size: 28px;
-    margin-bottom: 20px;
-    text-align: center;
-}
+    .partida-container h2 {
+        color: #d66b0e;
+        font-size: 28px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
 
-.partida-container p {
-    font-size: 20px;
-    color: white;
-    text-align: center;
-    margin-bottom: 30px;
-}
+    .partida-container p {
+        font-size: 20px;
+        color: white;
+        text-align: center;
+        margin-bottom: 30px;
+    }
 
-.partida-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
+    .partida-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
 
-.partida-container label {
-    display: block;
-    background: rgba(255, 255, 255, 0.08);
-    color: black;
-    padding: 12px 16px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
+    .partida-container label {
+        display: block;
+        background: rgba(255, 255, 255, 0.08);
+        color: black;
+        padding: 12px 16px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
 
-.partida-container label:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
+    .partida-container label:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
 
-.partida-container input[type="radio"] {
-    margin-right: 10px;
-}
+    .partida-container input[type="radio"] {
+        margin-right: 10px;
+    }
 
-.partida-container button {
-    font-family: Agrandir, sans-serif;
-    font-size: 16px;
-    background-color: #d66b0e;
-    color: white;
-    padding: 14px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
-}
+    .partida-container button {
+        font-family: Agrandir, sans-serif;
+        font-size: 16px;
+        background-color: #d66b0e;
+        color: white;
+        padding: 14px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+    }
 
-.partida-container button:hover {
-    background-color: #ff8000;
-}
-.opcion-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
+    .partida-container button:hover {
+        background-color: #ff8000;
+    }
+    .opcion-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
 
-.opcion-container input[type="text"] {
-    flex: 1;
-    padding: 8px;
-    margin-right: 10px;
-}
+    .opcion-container input[type="text"] {
+        flex: 1;
+        padding: 8px;
+        margin-right: 10px;
+    }
 
-.opcion-container input[type="radio"] {
-    transform: scale(1.2);
-    cursor: pointer;
-}
+    .opcion-container input[type="radio"] {
+        transform: scale(1.2);
+        cursor: pointer;
+    }
 
-.radio-title {
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    margin: 20px 0 10px 0;
-    align-self: flex-end;
-}
-.tiempo_restante {
-    font-weight: bold;
-    font-size: 20px;
-    color: red;
-    margin-bottom: 10px;
-}
+    .radio-title {
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 20px 0 10px 0;
+        align-self: flex-end;
+    }
+    .tiempo_restante {
+        font-weight: bold;
+        font-size: 20px;
+        color: red;
+        margin-bottom: 10px;
+    }
 
-.fin-partida-container{
-    color: white;
-    text-align: center;
-}
+    .fin-partida-container{
+        color: white;
+        text-align: center;
+    }
+

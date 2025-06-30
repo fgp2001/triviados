@@ -1,7 +1,7 @@
 <div class="perfil-container">
     <h1>Perfil de {{nombre_usuario}}</h1>
 
-    <img src="/triviados/{{imagen_perfil}}" alt="Imagen de perfil de {{nombre_usuario}}" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 2px solid #ccc;">
+    <img class="imagen-perfil" src="/triviados/{{imagen_perfil}}" alt="Imagen de perfil de {{nombre_usuario}}" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 2px solid #ccc;">
 
     <p><strong>Nombre completo:</strong> {{nombre_completo}}</p>
     <p><strong>Email:</strong> {{email}}</p>
@@ -9,6 +9,8 @@
     <p><strong>Último acceso:</strong> {{ultimo_acceso}}</p>
     <p><strong>Puntaje total:</strong> {{puntaje}}</p>
     <p><strong>Partidas jugadas:</strong> {{partidas_jugadas}}</p>
+
+    <img class="qr" src="/triviados/Perfil/mostrarQR?nombre_usuario={{nombre_usuario}}" alt="QR de {{nombre_usuario}}">
 
 
     <a href="/triviados/Lobby/show">Volver al Lobby</a>
