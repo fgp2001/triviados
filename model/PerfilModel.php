@@ -28,7 +28,7 @@ class PerfilModel {
 
     }
         public function getPerfilDatos($nombre_usuario){
-            $sql = "SELECT id_incremental, nombre_completo, email, foto_perfil, puntaje
+            $sql = "SELECT id_incremental, nombre_completo, email, foto_perfil, puntaje, fecha_registro
                     FROM usuarios
                     WHERE nombre_usuario = '$nombre_usuario' LIMIT 1";
 
@@ -42,7 +42,6 @@ class PerfilModel {
                 $fila['ultimo_acceso'] = $ultimoAcceso ?? "";
 
                 //Campos que no existen todavia
-                $fila['fecha_registro'] = "";
                 $fila['partidas_ganadas'] = 0;
                 $fila['partidas_perdidas'] = 0;
 

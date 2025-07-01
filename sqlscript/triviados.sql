@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-06-2025 a las 16:08:01
+-- Tiempo de generación: 01-07-2025 a las 19:03:10
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,8 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `triviados`
 --
-CREATE DATABASE triviados;
-USE triviados;
+
 -- --------------------------------------------------------
 
 --
@@ -210,7 +209,11 @@ CREATE TABLE `partida` (
 --
 
 INSERT INTO `partida` (`id_incremental`, `id_usuario`, `fecha_inicio`, `estado`, `puntaje_obtenido`) VALUES
-(1, 3, '2025-06-26 15:22:08', 0, 1);
+(1, 3, '2025-06-26 15:22:08', 0, 1),
+(2, 3, '2025-07-01 01:27:52', 0, 0),
+(3, 3, '2025-07-01 01:28:10', 1, 0),
+(4, 3, '2025-07-01 01:28:27', 0, 3),
+(5, 3, '2025-07-01 19:02:19', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -226,44 +229,45 @@ CREATE TABLE `preguntas` (
   `id_usuario` int(11) NOT NULL,
   `id_categoria` int(11) NOT NULL,
   `veces_entregada` int(11) DEFAULT 0,
-  `veces_correcta` int(11) DEFAULT 0
+  `veces_correcta` int(11) DEFAULT 0,
+  `fecha_creacion` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `preguntas`
 --
 
-INSERT INTO `preguntas` (`id_incremental`, `pregunta`, `estado`, `reportado`, `id_usuario`, `id_categoria`, `veces_entregada`, `veces_correcta`) VALUES
-(1, '¿Cuál es la capital de Italia?', 1, 0, 3, 1, 0, 0),
-(2, '¿Cuál es el río más largo del mundo?', 1, 0, 3, 2, 1, 0),
-(3, '¿En qué año comenzó la Segunda Guerra Mundial?', 1, 0, 3, 2, 0, 0),
-(4, '¿Qué planeta es el más cercano al sol?', 1, 0, 3, 3, 0, 0),
-(5, '¿Quién escribió \'Cien años de soledad\'?', 1, 0, 3, 4, 0, 0),
-(6, '¿Cuál es el símbolo químico del oro?', 1, 0, 3, 3, 0, 0),
-(7, '¿Quién pintó la Mona Lisa?', 1, 0, 3, 4, 0, 0),
-(8, '¿Cuál es el idioma más hablado del mundo?', 1, 0, 3, 1, 0, 0),
-(9, '¿Cuántos planetas hay en el sistema solar?', 1, 0, 3, 3, 0, 0),
-(10, '¿Qué gas es necesario para que ocurra la combustión?', 1, 0, 3, 3, 0, 0),
-(11, '¿Qué instrumento mide la presión atmosférica?', 1, 0, 3, 3, 0, 0),
-(12, '¿Quién fue el primer presidente de los Estados Unidos?', 1, 0, 3, 2, 0, 0),
-(13, '¿Cuál es el resultado de 9 x 7?', 1, 0, 3, 2, 0, 0),
-(14, '¿En qué país se encuentra la Torre Eiffel?', 1, 0, 3, 1, 0, 0),
-(15, '¿Qué continente tiene más países?', 1, 0, 3, 1, 0, 0),
-(16, '¿Qué animal es conocido como el \"rey de la selva\"?', 1, 0, 3, 4, 0, 0),
-(17, '¿Cuál es la capital de Australia?', 1, 0, 3, 1, 0, 0),
-(18, '¿Cuántos océanos hay en la Tierra?', 1, 0, 3, 2, 0, 0),
-(19, '¿Qué instrumento se usa para ver objetos muy pequeños?', 1, 0, 3, 3, 0, 0),
-(20, '¿Qué país tiene forma de bota?', 1, 0, 3, 1, 0, 0),
-(21, '¿Cuál es el metal más ligero?', 1, 0, 3, 3, 0, 0),
-(22, '¿Qué escritor creó a Sherlock Holmes?', 1, 0, 3, 2, 0, 0),
-(23, '¿Cuál es el país con más habitantes?', 1, 0, 3, 1, 0, 0),
-(24, '¿Cuál es el órgano más grande del cuerpo humano?', 1, 0, 3, 3, 1, 1),
-(25, '¿Qué pintura famosa hizo Vincent Van Gogh?', 1, 0, 3, 4, 0, 0),
-(26, '¿Cuál es el elemento más abundante en el aire?', 1, 0, 3, 3, 0, 0),
-(27, '¿Qué país inventó el sushi?', 1, 0, 3, 1, 0, 0),
-(28, '¿Qué significa la sigla \"ONU\"?', 1, 0, 3, 1, 0, 0),
-(29, '¿Qué autor escribió \"El Quijote\"?', 1, 0, 3, 2, 0, 0),
-(30, '¿Qué país ganó el Mundial de Fútbol en 2018?', 1, 0, 3, 4, 0, 0);
+INSERT INTO `preguntas` (`id_incremental`, `pregunta`, `estado`, `reportado`, `id_usuario`, `id_categoria`, `veces_entregada`, `veces_correcta`, `fecha_creacion`) VALUES
+(1, '¿Cuál es la capital de Italia?', 1, 0, 3, 1, 0, 0, '2025-07-01 13:58:24'),
+(2, '¿Cuál es el río más largo del mundo?', 1, 0, 3, 2, 1, 0, '2025-07-01 13:58:24'),
+(3, '¿En qué año comenzó la Segunda Guerra Mundial?', 1, 0, 3, 2, 0, 0, '2025-07-01 13:58:24'),
+(4, '¿Qué planeta es el más cercano al sol?', 1, 0, 3, 3, 1, 0, '2025-07-01 13:58:24'),
+(5, '¿Quién escribió \'Cien años de soledad\'?', 1, 0, 3, 4, 0, 0, '2025-07-01 13:58:24'),
+(6, '¿Cuál es el símbolo químico del oro?', 1, 0, 3, 3, 0, 0, '2025-07-01 13:58:24'),
+(7, '¿Quién pintó la Mona Lisa?', 1, 0, 3, 4, 0, 0, '2025-07-01 13:58:24'),
+(8, '¿Cuál es el idioma más hablado del mundo?', 1, 0, 3, 1, 0, 0, '2025-07-01 13:58:24'),
+(9, '¿Cuántos planetas hay en el sistema solar?', 1, 0, 3, 3, 0, 0, '2025-07-01 13:58:24'),
+(10, '¿Qué gas es necesario para que ocurra la combustión?', 1, 1, 3, 3, 1, 1, '2025-07-01 13:58:24'),
+(11, '¿Qué instrumento mide la presión atmosférica?', 1, 0, 3, 3, 0, 0, '2025-07-01 13:58:24'),
+(12, '¿Quién fue el primer presidente de los Estados Unidos?', 1, 0, 3, 2, 0, 0, '2025-07-01 13:58:24'),
+(13, '¿Cuál es el resultado de 9 x 7?', 1, 0, 3, 2, 0, 0, '2025-07-01 13:58:24'),
+(14, '¿En qué país se encuentra la Torre Eiffel?', 1, 0, 3, 1, 0, 0, '2025-07-01 13:58:24'),
+(15, '¿Qué continente tiene más países?', 1, 0, 3, 1, 0, 0, '2025-07-01 13:58:24'),
+(16, '¿Qué animal es conocido como el \"rey de la selva\"?', 1, 0, 3, 4, 0, 0, '2025-07-01 13:58:24'),
+(17, '¿Cuál es la capital de Australia?', 1, 0, 3, 1, 1, 0, '2025-07-01 13:58:24'),
+(18, '¿Cuántos océanos hay en la Tierra?', 1, 0, 3, 2, 0, 0, '2025-07-01 13:58:24'),
+(19, '¿Qué instrumento se usa para ver objetos muy pequeños?', 1, 0, 3, 3, 1, 1, '2025-07-01 13:58:24'),
+(20, '¿Qué país tiene forma de bota?', 1, 0, 3, 1, 0, 0, '2025-07-01 13:58:24'),
+(21, '¿Cuál es el metal más ligero?', 1, 0, 3, 3, 0, 0, '2025-07-01 13:58:24'),
+(22, '¿Qué escritor creó a Sherlock Holmes?', 1, 0, 3, 2, 0, 0, '2025-07-01 13:58:24'),
+(23, '¿Cuál es el país con más habitantes?', 1, 0, 3, 1, 0, 0, '2025-07-01 13:58:24'),
+(24, '¿Cuál es el órgano más grande del cuerpo humano?', 1, 0, 3, 3, 1, 1, '2025-07-01 13:58:24'),
+(25, '¿Qué pintura famosa hizo Vincent Van Gogh?', 1, 0, 3, 4, 1, 0, '2025-07-01 13:58:24'),
+(26, '¿Cuál es el elemento más abundante en el aire?', 1, 0, 3, 3, 0, 0, '2025-07-01 13:58:24'),
+(27, '¿Qué país inventó el sushi?', 1, 0, 3, 1, 0, 0, '2025-07-01 13:58:24'),
+(28, '¿Qué significa la sigla \"ONU\"?', 1, 0, 3, 1, 1, 1, '2025-07-01 13:58:24'),
+(29, '¿Qué autor escribió \"El Quijote\"?', 1, 0, 3, 2, 0, 0, '2025-07-01 13:58:24'),
+(30, '¿Qué país ganó el Mundial de Fútbol en 2018?', 1, 0, 3, 4, 0, 0, '2025-07-01 13:58:24');
 
 -- --------------------------------------------------------
 
@@ -300,17 +304,18 @@ CREATE TABLE `usuarios` (
   `token_validacion` varchar(64) DEFAULT NULL,
   `tipo_Usuario` varchar(64) DEFAULT 'Jugador',
   `preguntas_respondidas` int(11) DEFAULT 0,
-  `puntaje` int(11) DEFAULT 0
+  `puntaje` int(11) DEFAULT 0,
+  `fecha_registro` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_incremental`, `email`, `password`, `nombre_completo`, `fecha_nacimiento`, `sexo`, `pais`, `ciudad`, `nombre_usuario`, `foto_perfil`, `validado`, `token_validacion`, `tipo_Usuario`, `preguntas_respondidas`, `puntaje`) VALUES
-(1, 'admin@admin.com', 'admin123', 'Admin Principal', '1990-01-01', 'otro', 'Argentina', 'Buenos Aires', 'admin', 'admin.jpg', 1, NULL, 'admin', 0, 0),
-(2, 'editor@editor.com', 'editor123', 'Editor Principal', '1990-01-01', 'otro', 'Argentina', 'Buenos Aires', 'editor', 'editor.jpg', 1, NULL, 'editor', 0, 0),
-(3, 'fgp_2001@hotmail.com', 'facu123', 'Facundo Pereira', '2001-01-15', 'masculino', 'Argentina', 'El Palomar', 'Facupe', 'img/Facupe.png', 1, '113ecf408e93b5124ba9e8ddffb921d3', 'Jugador', 2, 1);
+INSERT INTO `usuarios` (`id_incremental`, `email`, `password`, `nombre_completo`, `fecha_nacimiento`, `sexo`, `pais`, `ciudad`, `nombre_usuario`, `foto_perfil`, `validado`, `token_validacion`, `tipo_Usuario`, `preguntas_respondidas`, `puntaje`, `fecha_registro`) VALUES
+(1, 'admin@admin.com', 'admin123', 'Admin Principal', '1990-01-01', 'otro', 'Argentina', 'Buenos Aires', 'admin', 'admin.jpg', 1, NULL, 'admin', 0, 0, '2025-07-01 13:56:00'),
+(2, 'editor@editor.com', 'editor123', 'Editor Principal', '1990-01-01', 'otro', 'Argentina', 'Buenos Aires', 'editor', 'editor.jpg', 1, NULL, 'editor', 0, 0, '2025-07-01 13:56:00'),
+(3, 'fgp_2001@hotmail.com', 'facu123', 'Facundo Pereira', '2001-01-15', 'masculino', 'Argentina', 'El Palomar', 'Facupe', 'img/Facupe.png', 1, '113ecf408e93b5124ba9e8ddffb921d3', 'Jugador', 8, 4, '2025-07-01 13:56:00');
 
 -- --------------------------------------------------------
 
@@ -330,7 +335,13 @@ CREATE TABLE `usuario_pregunta` (
 
 INSERT INTO `usuario_pregunta` (`id_incremental`, `id_usuario`, `id_pregunta`) VALUES
 (0, 3, 24),
-(0, 3, 2);
+(0, 3, 2),
+(0, 3, 4),
+(0, 3, 10),
+(0, 3, 28),
+(0, 3, 19),
+(0, 3, 17),
+(0, 3, 25);
 
 --
 -- Índices para tablas volcadas
@@ -383,7 +394,7 @@ ALTER TABLE `opciones`
 -- AUTO_INCREMENT de la tabla `partida`
 --
 ALTER TABLE `partida`
-  MODIFY `id_incremental` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_incremental` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas`
