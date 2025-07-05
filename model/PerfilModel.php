@@ -40,11 +40,6 @@ class PerfilModel {
                 $fila['partidas_jugadas'] = $this->obtenerCantidadPartidasJugadas($fila['id_incremental']);
                 $ultimoAcceso = $this->obtenerUltimoAccesoPorUltimaPartida($fila['id_incremental']);
                 $fila['ultimo_acceso'] = $ultimoAcceso ?? "";
-
-                //Campos que no existen todavia
-                $fila['partidas_ganadas'] = 0;
-                $fila['partidas_perdidas'] = 0;
-
                 $imagen_path = $fila['foto_perfil'];
 
                 if (empty($imagen_path)){

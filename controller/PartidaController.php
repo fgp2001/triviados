@@ -136,8 +136,12 @@ class PartidaController
     }
 
     public function reportarPregunta() {
-        $pregunta = $_SESSION['id_pregunta_actual'];
-        $this->model->reportarPregunta($pregunta);
+        $this->model->reportarPregunta($_SESSION['id_pregunta_actual']);
+        $this->model->perdioPartida($_SESSION['id_partida']);
+        $this->view->render("FinPartida", [ "mensaje" => "Se Termino la Partida por una Pregunta Reportada.",
+            "respondidas" => $_SESSION['respondidas'] ?? 0,
+            "correctas" => $_SESSION['correctas'] ?? 0]);
+        $this->limpiarContadores();
     }
 }
 

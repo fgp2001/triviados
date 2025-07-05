@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `triviados`
 --
-
+CREATE DATABASE  triviados;
+USE triviados;
 -- --------------------------------------------------------
 
 --
