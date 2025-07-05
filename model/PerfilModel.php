@@ -28,7 +28,7 @@ class PerfilModel {
 
     }
         public function getPerfilDatos($nombre_usuario){
-            $sql = "SELECT id_incremental, nombre_completo, email, foto_perfil, puntaje, fecha_registro
+            $sql = "SELECT id_incremental, nombre_completo, email, foto_perfil, puntaje, fecha_registro, pais, ciudad
                     FROM usuarios
                     WHERE nombre_usuario = '$nombre_usuario' LIMIT 1";
 
@@ -48,6 +48,7 @@ class PerfilModel {
 
                 $fila['imagen_perfil'] = $imagen_path;
                 $fila['nombre_usuario'] = $nombre_usuario;
+
                 return $fila;
             }
 

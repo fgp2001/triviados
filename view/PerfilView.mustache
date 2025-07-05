@@ -12,6 +12,54 @@
 
     <img class="qr" src="/triviados/Perfil/mostrarQR?nombre_usuario={{nombre_usuario}}" alt="QR de {{nombre_usuario}}">
 
+    <h3 style="color: white;">Ubicación</h3>
+    <p><strong>País:</strong> {{pais}}</p>
+    <p><strong>Ciudad:</strong> {{ciudad}}</p>
+
+    <div id="map" style="height: 300px; width: 100%; border-radius: 10px; margin-top: 10px;"></div>
 
     <a href="/triviados/Lobby/show">Volver al Lobby</a>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const ciudad = "{{{ciudad}}}";
+        const pais = "{{{pais}}}";
+        const fullLocation = `${ciudad}, ${pais}`;
+
+        if (!ciudad || !pais) {
+            document.getElementById('map').innerHTML = "<p style='color: white;'>Ubicación no disponible</p>";
+            return;
+        }
+
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullLocation)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        const lat = parseFloat(data[0].lat);
+                        const lon = parseFloat(data[0].lon);
+
+                        //Borrar el mapa antiguo
+                        if (L.DomUtil.get('map') !== null) {
+                            L.DomUtil.get('map')._leaflet_id = null;
+                        }
+
+                        const map = L.map('map').setView([lat, lon], 13);
+
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '© OpenStreetMap contributors'
+                        }).addTo(map);
+
+                        const marker = L.marker([lat, lon]).addTo(map);
+                        marker.bindPopup(`${ciudad}, ${pais}`).openPopup();
+                    } else {
+                        document.getElementById('map').innerHTML = "<p style='color: white;'>Ubicación no encontrada</p>";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error en la geolocalización:", error);
+                    document.getElementById('map').innerHTML = "<p style='color: white;'>Error cargando el mapa</p>";
+                });
+    });
+</script>
+
