@@ -26,13 +26,13 @@
         <tr>
             <td>{{id}}</td>
             <td>
-                <form method="POST" action="/triviados/GestionarPregunta/modificar" style="margin: 0;">
-                    <input type="hidden" name="id" value="{{id}}">
-                    <textarea name="pregunta" rows="2" style="width: 100%;">{{pregunta}}</textarea>
+                {{pregunta}}
             </td>
             <td style="text-align: center;">
-                <button type="submit" class="btn">Guardar</button>
-                </form>
+                 <a href="/triviados/EditarPregunta/form?id={{id}}"
+                  class="btn">
+                     Editar
+                  </a>
                 <a href="/triviados/GestionarPregunta/baja?id={{id}}"
                 class="btn"
                 onclick="return confirm('¿Estás seguro de eliminar esta pregunta?');">
