@@ -1,8 +1,13 @@
 <section>
+    <div class="user-bar" style="position: absolute; top: 15px; right: 20px; display: flex; align-items: center; gap: 10px;">
+        <form method="POST" action="/triviados/Logout/ejecutar" style="display: inline;">
+            <button type="submit" class="btn">Cerrar sesión</button>
+        </form>
+    </div>
     <div>
         <form method="get">
-            <label>Seleccionar período:</label>
-            <select name="periodo" id="periodo" onchange="this.form.submit()">
+            <label class="bottom-text">Seleccionar período:</label>
+            <select name="periodo" id="periodo" onchange="this.form.submit()" class="btn">
                 <option value="dia">Día</option>
                 <option value="semana">Semana</option>
                 <option value="mes">Mes</option>
@@ -19,6 +24,7 @@
         <img src="{{grafico_cantidad_usuarios_por_sexo}}" alt="Gráfico de cantidad de usuarios por sexo">
         <img src="{{grafico_cantidad_usuarios_por_grupo_edad}}" alt="Gráfico de cantidad de usuarios por grupo de edad">
     </div>
+    <a href="/triviados/Dashboard/generarPDF?periodo={{periodo}}" target="_blank" class="btn"> Descargar PDF del {{periodo}} </a>
 </section>
 
 <script>
