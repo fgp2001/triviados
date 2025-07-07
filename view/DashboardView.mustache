@@ -7,7 +7,7 @@
     <div>
         <form method="get">
             <label class="bottom-text">Seleccionar período:</label>
-            <select name="periodo" id="periodo" onchange="this.form.submit()" class="btn">
+            <select name="periodo" id="periodo" onchange="this.form.submit()" class="btn" style="margin-bottom: 10px;">
                 <option value="dia">Día</option>
                 <option value="semana">Semana</option>
                 <option value="mes">Mes</option>
@@ -24,7 +24,13 @@
         <img src="{{grafico_cantidad_usuarios_por_sexo}}" alt="Gráfico de cantidad de usuarios por sexo">
         <img src="{{grafico_cantidad_usuarios_por_grupo_edad}}" alt="Gráfico de cantidad de usuarios por grupo de edad">
     </div>
-    <a href="/triviados/Dashboard/generarPDF?periodo={{periodo}}" target="_blank" class="btn"> Descargar PDF del {{periodo}} </a>
+
+
+    <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+        <a href="/triviados/Dashboard/generarPDF?periodo={{periodo}}" target="_blank" class="btn">
+        Descargar PDF del {{periodo}}
+        </a>
+    </div>
 </section>
 
 <script>

@@ -14,7 +14,7 @@ class GestionarPreguntaController
 
     public function show()
     {
-        $preguntas = $this->model->obtenerTodasLasPreguntas();
+        $preguntas = $this->model->obtenerTodasLasPreguntas() ;
 
         $mensaje = null;
         if (isset($_GET["mensaje"])) {
@@ -29,6 +29,8 @@ class GestionarPreguntaController
             "preguntas" => $preguntas,
             "mensaje" => $mensaje
         ]);
+
+        restore_error_handler();
 
     }
 

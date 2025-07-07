@@ -34,8 +34,10 @@ require_once ("controller/EditarPreguntaController.php");
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
+
 class Configuration
 {
+
     public function getDatabase()
     {
         $config = $this->getIniConfig();

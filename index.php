@@ -1,6 +1,15 @@
 <?php
 session_start();
 
+//Silenciador del error de parseo de mustache
+
+set_error_handler(function($errno, $errstr) {
+    if ($errno === E_WARNING && strpos($errstr, 'Trying to access array offset on value of type null') !== false) {
+        return true; // Silencia ese warning puntual
+    }
+    return false; // El resto de errores los muestra
+});
+
 require_once("Configuration.php");
 
 $controller = $_GET['controller'] ?? null;

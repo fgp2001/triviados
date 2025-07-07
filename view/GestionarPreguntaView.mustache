@@ -15,6 +15,8 @@
 
 
 
+
+
 <table style="width: 90%; margin: auto; color: white; border-collapse: collapse; margin-bottom: 30px;">
     <tr>
         <th style="text-align: left;">ID</th>
@@ -29,15 +31,16 @@
                 {{pregunta}}
             </td>
             <td style="text-align: center;">
-                 <a href="/triviados/EditarPregunta/form?id={{id}}"
-                  class="btn">
+                <div style="display: inline-flex; gap: 10px;">
+                    <a href="/triviados/EditarPregunta/form?id={{id}}" class="btn">
                      Editar
                   </a>
                 <a href="/triviados/GestionarPregunta/baja?id={{id}}"
                 class="btn"
                 onclick="return confirm('¿Estás seguro de eliminar esta pregunta?');">
                 Eliminar
-                </a>
+                    </a>
+                </div>
             </td>
         </tr>
     {{/preguntas}}
