@@ -29,6 +29,8 @@ require_once("model/AprobarSugerenciasModel.php");
 require_once("controller/AprobarSugerenciasController.php");
 require_once ("model/PreguntasReportadasModel.php");
 require_once ("controller/PreguntasReportadasController.php");
+require_once ("model/EditarPreguntaModel.php");
+require_once ("controller/EditarPreguntaController.php");
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
@@ -129,6 +131,12 @@ class Configuration
     public function getPreguntasReportadasController(){
         return new PreguntasReportadasController(
             new PreguntasReportadasModel($this->getDatabase()),
+            $this->getViewer()
+        );
+    }
+    public function getEditarPreguntaController(){
+        return new EditarPreguntaController(
+            new EditarPreguntaModel($this->getDatabase()),
             $this->getViewer()
         );
     }

@@ -1,0 +1,40 @@
+<div class = "container">
+    <div class = "login-box">
+        <img src="../media/back.png" alt="volver" class="back-btn" style="cursor:pointer;" onclick="history.back()">
+        <h2> Editor de Preguntas </h2>
+        <form action="/triviados/EditarPregunta/editar?id={{id}}&o1={{#opcion1}}{{id}}{{/opcion1}}&o2={{#opcion2}}{{id}}{{/opcion2}}&o3={{#opcion3}}{{id}}{{/opcion3}}&o4={{#opcion4}}{{id}}{{/opcion4}}" method="POST">
+
+             <select name="Categoria"required>
+                            <option value="">Seleccione Categoria</option>
+                            <option value="1">Geografia</option>
+                            <option value="2">Historia</option>
+                            <option value="3">Ciencia</option>
+                            <option value="4">Deportes</option>
+                        </select>
+           <textarea name="pregunta" rows="2" style="width: 100%;">{{#datosPregunta}}{{pregunta}}{{/datosPregunta}}</textarea>
+
+
+          <h5 class="radio-title">¿Es Correcta?</h5>
+          <div class="opcion-container">
+            <textarea name="Opcion1" rows="2" style="width: 100%;">{{#opcion1}}{{opcion}}{{/opcion1}}</textarea>
+            <input type="radio" name="esCorrecta" value="1">
+          </div>
+          <div class="opcion-container">
+            <textarea name="Opcion1" rows="2" style="width: 100%;">{{#opcion2}}{{opcion}}{{/opcion2}}</textarea>
+            <input type="radio" name="esCorrecta" value="2">
+          </div>
+          <div class="opcion-container">
+            <textarea name="Opcion1" rows="2" style="width: 100%;">{{#opcion3}}{{opcion}}{{/opcion3}}</textarea>
+            <input type="radio" name="esCorrecta" value="3">
+          </div>
+          <div class="opcion-container">
+            <textarea name="Opcion1" rows="2" style="width: 100%;">{{#opcion4}}{{opcion}}{{/opcion4}}</textarea>
+            <input type="radio" name="esCorrecta" value="4">
+          </div>
+
+
+
+            <button type="submit" value="Submit">Crear</button>
+        </form>
+    </div>
+</div>
