@@ -1,1 +1,28 @@
-<h1>Me conecte con la base de datos</h1>
+<section>
+    <div>
+        <form method="get">
+            <label>Seleccionar período:</label>
+            <select name="periodo" id="periodo" onchange="this.form.submit()">
+                <option value="dia">Día</option>
+                <option value="semana">Semana</option>
+                <option value="mes">Mes</option>
+                <option value="año">Año</option>
+            </select>
+        </form>
+    </div>
+    <div>
+        <img src="{{grafico_partidas_totales}}" alt="Gráfico de partidas totales">
+        <img src="{{grafico_usuarios_totales}}" alt="Gráfico de usuarios totales">
+        <img src="{{grafico_preguntas_totales}}" alt="Gráfico de preguntas totales">
+        <img src="{{grafico_porcentaje_preguntas_usuarios}}" alt="Gráfico de porcentaje de preguntas correctas por usuario">
+        <img src="{{grafico_cantidad_usuarios_por_pais}}" alt="Gráfico de cantidad de usuarios por pais">
+        <img src="{{grafico_cantidad_usuarios_por_sexo}}" alt="Gráfico de cantidad de usuarios por sexo">
+        <img src="{{grafico_cantidad_usuarios_por_grupo_edad}}" alt="Gráfico de cantidad de usuarios por grupo de edad">
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+document.getElementById('periodo').value = '{{periodo}}';
+});
+</script>
