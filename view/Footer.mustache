@@ -10,37 +10,5 @@
         <img src="/triviados/media/tiktok.png" alt="tiktok">
     </div>
 </div>
-
-
-<script>
-    // Inicializar el mapa
-    var map = L.map('map').setView([0, 0], 2); // vista inicial global
-
-    // Cargar mapa base
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Agregar marcador al hacer clic
-    var marker;
-
-    map.on('click', function (e) {
-        if (marker) {
-            map.removeLayer(marker);
-        }
-
-        marker = L.marker(e.latlng).addTo(map);
-
-        // Usar servicio de geocodificación inversa (OpenStreetMap)
-        fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${e.latlng.lat}&lon=${e.latlng.lng}`)
-                .then(res => res.json())
-                .then(data => {
-                    const ciudad = data.address.city || data.address.town || data.address.village || '';
-                    const pais = data.address.country || '';
-                    document.getElementById('ciudad').value = ciudad;
-                    document.getElementById('pais').value = pais;
-                });
-    });
-</script>
 </body>
 </html>
