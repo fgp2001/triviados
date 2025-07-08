@@ -2,7 +2,6 @@
 session_start();
 
 //Silenciador del error de parseo de mustache
-
 set_error_handler(function($errno, $errstr) {
     if ($errno === E_WARNING && strpos($errstr, 'Trying to access array offset on value of type null') !== false) {
         return true; // Silencia ese warning puntual
@@ -12,52 +11,65 @@ set_error_handler(function($errno, $errstr) {
 
 require_once("Configuration.php");
 
+$rutasPublicas = [
+    'Login/show',
+    'Login/ejecutarLogin',
+    'Register/show',
+    'Register/registrar',
+    'Register/validar',
+    'Register/enviarEmailValidacion',
+    'Register/validarEmailAjax',
+    'Logout/ejecutar'
+];
+
 $controller = $_GET['controller'] ?? null;
 $method = $_GET['method'] ?? null;
 
-// NO REQUIEREN LOGIN SON PUBLICOS
-$publicos = [
-    'Login' => ['show', 'ejecutarLogin'],
-    'Register' => ['show', 'registrar' , 'validar', 'enviarEmailValidacion', 'validarEmailAjax'],
-    'Logout' => ['ejecutar']
-];
+$ruta = "$controller/$method";
 
-// Permitir si es público
-if (isset($publicos[$controller]) && in_array($method, $publicos[$controller])) {
-    $permitido = true;
-} else {
-    $tipoUsuario = strtolower($_SESSION['tipo_usuario'] ?? '');
-    $permitido = false;
-
-    switch ($controller) {
-        case 'Dashboard':
-            $permitido = ($tipoUsuario === 'admin');
-            break;
-        case 'PanelEditor':
-        case 'GestionarPregunta':
-        case 'AprobarSugerencias':
-        case 'PreguntasReportadas':
-        case 'EditarPregunta':
-        $permitido = ($tipoUsuario === 'editor');
-            break;
-        case 'Lobby':
-        case 'Partida':
-        case 'CrearPregunta':
-        case 'Ranking':
-        case 'Perfil':
-            $permitido = ($tipoUsuario === 'jugador');
-            break;
-
-        default:
-            $permitido = false;
-            break;
-    }
+//Si no hay sesion iniciada y la ruta no es publica, nos redirige al lobby
+if (!isset($_SESSION['id_incremental']) && !in_array($ruta, $rutasPublicas, true)) {
+    header("Location: /triviados/Login/show?error=sesion_no_iniciada");
+    exit;
 }
 
-// Si no tiene permiso para alguno de los controladores, devuelve acceso denegado
-if (!$permitido) {
-    header("Location: /triviados/Login/show?error=acceso_denegado");
-    exit;
+
+if (isset($_SESSION['id_incremental'])){
+    $tipoUsuario = strtolower($_SESSION['tipo_usuario'] ?? '');
+
+    if (str_starts_with($ruta, 'Dashboard') && $tipoUsuario !== 'admin') {
+        session_unset();
+        session_destroy();
+        header("Location: /triviados/Login/show?error=acceso_denegado");
+        exit;
+    }
+
+    if (str_starts_with($ruta, 'PanelEditor') ||
+        str_starts_with($ruta, 'GestionarPregunta') ||
+        str_starts_with($ruta, 'AprobarSugerencias') ||
+        str_starts_with($ruta, 'PreguntasReportadas') ||
+        str_starts_with($ruta, 'EditarPregunta')) {
+        if ($tipoUsuario !== 'editor') {
+            session_unset();
+            session_destroy();
+            header("Location: /triviados/Login/show?error=acceso_denegado");
+            exit;
+        }
+    }
+
+    if (str_starts_with($ruta, 'Lobby') ||
+        str_starts_with($ruta, 'Partida') ||
+        str_starts_with($ruta, 'CrearPregunta') ||
+        str_starts_with($ruta, 'Ranking') ||
+        str_starts_with($ruta, 'Perfil')) {
+        if ($tipoUsuario !== 'jugador') {
+            session_unset();
+            session_destroy();
+            header("Location: /triviados/Login/show?error=acceso_denegado");
+            exit;
+        }
+    }
+
 }
 
 $configuration = new Configuration();
